@@ -1,8 +1,8 @@
 import React from 'react'
 // import Result_table from './Result_Table'
-import Result_piechart from './Result_piechart'
-import Result_barchart from './Result_barchart'
-import Result_table from './Result_table';
+import ResultPiechart from './ResultPiechart'
+import ResultBarchart from './ResultBarchart'
+import ResultTable from './ResultTable';
 
 function Result() {
   return (
@@ -22,14 +22,14 @@ function Result() {
       <h3 className='mt-5 mb-3'>STATUS</h3>
 
         </center>
-      <Result_table/>
+      <ResultTable/>
       <center>
       <h3 className='mt-5 mb-3'>GRAPHS</h3>
 
         </center>
       <div className='flex'>
-        <Result_piechart/>
-        <Result_barchart/>
+        <ResultPiechart/>
+        <ResultBarchart/>
       </div>
     </div>
   )
