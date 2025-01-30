@@ -4,6 +4,8 @@ import ResultPiechart from './ResultPiechart'
 import ResultBarchart from './ResultBarchart'
 import ResultTable from './ResultTable';
 
+
+
 function Result() {
   return (
     <div className='container mt-5 ' id='result-container'>
