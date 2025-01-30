@@ -6,7 +6,7 @@ const Footer = () => {
     <div className=' container-fluid fixed-bottom'  >
       <hr style={{ width : '100%',border: '2px solid black' }} />
 
-    <div className="row "style={{backgroundColor: '#05236e',color:'white'}} >
+    <div className="row "style={{backgroundColor: '#013359',color:'white'}} >
       {/* main content */}
       <div className="col-6 mt-3">
       <center> <b> Election Commission of India </b>  </center> 
@@ -50,8 +50,13 @@ const Footer = () => {
       </center>
 
         </div>
+        
       </div>
     </div>
+    <div className='row d-flex justify-content-center'style={{backgroundColor: '#01233d',color:'white'}}>
+          <hr />
+        © Copyright Election Commission of India 2025 
+        </div>
     </div>
   )
 }

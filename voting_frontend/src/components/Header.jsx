@@ -7,7 +7,7 @@ const Header = () => {
   
   return (
     <div className="container">
-      <nav className="navbar fixed-top navbar-expand-lg mt-1" data-bs-theme="dark" style={{backgroundColor: '#05236e',color:'white'}}>
+      <nav className="navbar fixed-top navbar-expand-lg " data-bs-theme="dark" style={{backgroundColor: '#004274',color:'white'}}>
         <div className="container" style={{fontSize : 18}} >
           <Link className= {`nav-link`} 
                 onClick={()=>{
