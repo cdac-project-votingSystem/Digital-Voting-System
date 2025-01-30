@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
 import './App.css';
+<<<<<<< HEAD
 import { Routes, Route } from 'react-router-dom'
 import Result from './components/ResultComponent/Result.jsx';
 import AdminHome from './pages/AdminHome.jsx';
@@ -10,6 +11,9 @@ import VoterCard from './components/card/VoterCard.jsx';
 import Validation from './pages/Validation.jsx';
 import CandidateValidation from './pages/CandidateValidation.jsx';
 import VoterValidation from './pages/VoterValidation.jsx';
+=======
+import HomePage from './components/HomePageContainer/HomePage';
+>>>>>>> d_homepage
 
 
 const App = () => {
@@ -31,6 +35,7 @@ const App = () => {
         </div>
       </div> */}
 
+<<<<<<< HEAD
       <div className="row">
         <div className="col">
 
@@ -59,6 +64,9 @@ const App = () => {
 
 
 
+=======
+      <HomePage/>
+>>>>>>> d_homepage
     </div>
   );
 }

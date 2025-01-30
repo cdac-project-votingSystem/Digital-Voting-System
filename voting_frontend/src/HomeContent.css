@@ -1,0 +1,11 @@
+/* img {
+    border: 2px solid #ddd;
+    border-radius: 8px; 
+} */
+#outerDiv{
+    background-color: #555d8a;
+    border-radius: 8px;
+    box-shadow: 1px;
+    text-align: justify;
+    color: white;
+}
