@@ -29,7 +29,7 @@ const Header = () => {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav ms-auto ">
             <li className="nav-item">
-                <Link className= {`nav-link ${activeLink == 'Login' ?'d-none': '' }`} 
+                <Link className= {`nav-link ${activeLink === 'Login' ?'d-none': '' }`} 
                 onClick={()=>{
                     setActiveLink('Login')
                 }}
@@ -40,7 +40,7 @@ const Header = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className= {`nav-link ${activeLink == 'Signup' ?'d-none': ""}`} 
+                <Link className= {`nav-link ${activeLink === 'Signup' ?'d-none': ""}`} 
                 onClick={()=>{
                     setActiveLink('Signup')
                 }}
@@ -50,7 +50,7 @@ const Header = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className= {`nav-link ${activeLink == 'Translate' ?'d-none': '' }`} 
+                <Link className= {`nav-link ${activeLink === 'Translate' ?'d-none': '' }`} 
                 onClick={()=>{
                     setActiveLink('Translate')
                 }} to="/">
@@ -59,7 +59,7 @@ const Header = () => {
                 </Link>
               </li>
               <li className="nav-item me-3">
-                <Link className= {`nav-link ${activeLink == 'AdvanceSearch' ?'d-none': '' }`} 
+                <Link className= {`nav-link ${activeLink === 'AdvanceSearch' ?'d-none': '' }`} 
                 onClick={()=>{
                     setActiveLink('AdvanceSearch')
                 }}
