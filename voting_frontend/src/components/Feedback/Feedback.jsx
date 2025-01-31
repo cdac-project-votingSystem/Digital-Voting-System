@@ -9,20 +9,20 @@ function Feedback() {
                 <div>
                     <form>
                         <div class="form-group my-2">
-                            <label for="exampleFormControlInput1">Name</label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Enter Name" />
+                            <label for="FormControlInput1">Name</label>
+                            <input type="email" class="form-control" id="FormControlInput1" placeholder="Enter Name" />
                         </div>
                         <div class="form-group my-2">
-                            <label for="exampleFormControlInput1">Email address</label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Enter Email" />
+                            <label for="FormControlInput1">Email address</label>
+                            <input type="email" class="form-control" id="FormControlInput1" placeholder="Enter Email" />
                         </div>
                         <div class="form-group my-2">
-                            <label for="exampleFormControlInput1">Subject</label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Enter Subject" />
+                            <label for="FormControlInput1">Subject</label>
+                            <input type="email" class="form-control" id="FormControlInput1" placeholder="Enter Subject" />
                         </div>
                         <div class="form-group my-2">
-                            <label for="exampleFormControlTextarea1">Message</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            <label for="FormControlTextarea1">Message</label>
+                            <textarea class="form-control" id="FormControlTextarea1" rows="3"></textarea>
                         </div>
                         <center>
                             <button className='btn btn-info mt-3'>

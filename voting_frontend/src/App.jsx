@@ -7,12 +7,12 @@ import Result from "./components/ResultComponent/Result.jsx";
 
 import HomePage from "./components/HomePageContainer/HomePage";
 import SignUp from "./components/Signup.jsx";
-import Login from './components/Login';
 
 import CandidateValidation from './components/Admin/CandidateValidation';
 import AdminHome from './components/Admin/AdminHome';
 import RegisterNewParty from "./components/RegisterPoliticalParty/RegisterNewParty.jsx";
 import Login from "./components/Login.jsx";
+import Feedback from "./components/Feedback/Feedback.jsx";
 
 const App = () => {
   return (
@@ -31,17 +31,20 @@ const App = () => {
              />} />
             <Route path="/adminhome" element={<AdminHome />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/validation" element={<Validation />} />
+            {/* <Route path="/validation" element={<Validation />} /> */}
             <Route
               path="/registerPoliticalParty"
               element={<RegisterNewParty />}
             />
             <Route
-              path="/candidateValidation"
+              path="/validation"
               element={<CandidateValidation />}
             />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/feedback" element={<Feedback/>}/>
+
+
           </Routes>
         </div>
       </div>
