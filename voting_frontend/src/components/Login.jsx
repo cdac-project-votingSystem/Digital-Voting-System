@@ -11,7 +11,7 @@ const Login = () => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value,
+       name: value,
     });
   };
 
@@ -26,6 +26,7 @@ const Login = () => {
       <Header />
       <br />
       <br />
+      <br /><br /><br />
       <div className="text-center my-4">
         <h1 className="display-4 mb-4">Login</h1>{" "}
       </div>
@@ -69,6 +70,9 @@ const Login = () => {
           </div>
         </div>
       </div>
+      <br />
+      <br />
+      <br /><br />
     </div>
   );
 };

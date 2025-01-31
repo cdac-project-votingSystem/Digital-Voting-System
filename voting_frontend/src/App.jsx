@@ -4,14 +4,13 @@ import Footer from "./components/Footer.jsx";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Result from "./components/ResultComponent/Result.jsx";
-import AdminHome from "./pages/AdminHome.jsx";
-import CandidateCard from "./components/card/CandidateCard.jsx";
-import VoterCard from "./components/card/VoterCard.jsx";
-import Validation from "./pages/Validation.jsx";
-import CandidateValidation from "./pages/CandidateValidation.jsx";
-import VoterValidation from "./pages/VoterValidation.jsx";
 
 import HomePage from "./components/HomePageContainer/HomePage";
+import SignUp from "./components/Signup.jsx";
+import Login from './components/Login';
+
+import CandidateValidation from './components/Admin/CandidateValidation';
+import AdminHome from './components/Admin/AdminHome';
 
 const App = () => {
   return (
@@ -26,13 +25,14 @@ const App = () => {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/result" element={<Result />} />
-            <Route path="/adminhome" element={<AdminHome />} />
-            <Route path="/validation" element={<Validation />} />
+            <Route path="/adminhome" element={<AdminHome
+             />} />
             <Route
-              path="/candidateValidation"
+              path="/validation"
               element={<CandidateValidation />}
             />
-            <Route path="/voterValidation" element={<VoterValidation />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </div>
       </div>

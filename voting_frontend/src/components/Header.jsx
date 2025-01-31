@@ -53,7 +53,7 @@ const Header = () => {
                 <Link className= {`nav-link ${activeLink == 'Result' ?'d-none': '' }`} 
                 onClick={()=>{
                     setActiveLink('Result')
-                }} to="/">
+                }} to="/result">
                Result
                 {/* <span className="ms-2">|</span> */}
                 </Link>
@@ -72,6 +72,7 @@ const Header = () => {
           </div>
         </div>
       </nav>
+    
     </div>
   );
 };

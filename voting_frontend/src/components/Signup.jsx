@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import Header from "./Header";
 
 const SignUp = () => {
+
+  const [area,setArea] = useState('')
+
   const [formData, setFormData] = useState({
     name: "",
     dob: "",
     mobile: "",
     area: "",
     email: "",
-    politicalParty: "",
     password: "",
     confirmPassword: "",
   });
@@ -87,17 +89,22 @@ const SignUp = () => {
               </div>
               <div className="mb-3">
                 <label htmlFor="area" className="form-label">
-                  Area:
-                </label>
-                <input
-                  type="text"
+                  Constituency:
+                  </label>
+                <select
                   id="area"
                   name="area"
                   value={formData.area}
                   onChange={handleChange}
                   className="form-control"
                   required
-                />
+                >
+                  <option value="Delhi">Delhi</option>
+                  <option value="Raipur" >Raipur</option>
+                  <option value="Pune">Pune</option>
+                  <option value="Banglore">Banglore</option>
+                  </select>
+                  
               </div>
               <div className="mb-3">
                 <label htmlFor="email" className="form-label">
@@ -113,20 +120,7 @@ const SignUp = () => {
                   required
                 />
               </div>
-              <div className="mb-3">
-                <label htmlFor="politicalParty" className="form-label">
-                  Political Party:
-                </label>
-                <input
-                  type="text"
-                  id="politicalParty"
-                  name="politicalParty"
-                  value={formData.politicalParty}
-                  onChange={handleChange}
-                  className="form-control"
-                  required
-                />
-              </div>
+             
               <div className="mb-3">
                 <label htmlFor="password" className="form-label">
                   Password:
