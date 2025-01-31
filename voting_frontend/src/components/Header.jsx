@@ -50,11 +50,7 @@ const Header = () => {
                 </Link>
               </li>
               <li className="nav-item">
-<<<<<<< HEAD
-                <Link className= {`nav-link ${activeLink === 'Translate' ?'d-none': '' }`} 
-=======
                 <Link className= {`nav-link ${activeLink == 'Result' ?'d-none': '' }`} 
->>>>>>> d_homepage
                 onClick={()=>{
                     setActiveLink('Result')
                 }} to="/">

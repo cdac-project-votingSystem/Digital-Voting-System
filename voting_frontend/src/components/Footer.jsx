@@ -3,7 +3,7 @@ import logo from '../assests/Footer/eci-logo-white.svg'
 import { Link } from "react-router-dom";
 const Footer = () => {
   return (
-    <div className=' container-fluid align-bottom'  >
+    <div className=' container-fluid align-bottom '  >
       <hr style={{ width : '100%',border: '2px solid black' }} />
 
     <div className="row "style={{backgroundColor: '#013359',color:'white'}} >

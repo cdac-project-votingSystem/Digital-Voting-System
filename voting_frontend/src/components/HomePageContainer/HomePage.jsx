@@ -10,7 +10,7 @@ import Footer from '../Footer';
 const HomePage = () => {
   return (
     <div>
-      <Header/>
+      {/* <Header/> */}
       <br />
       <br />
       <HomePageCarousel/>
@@ -19,7 +19,7 @@ const HomePage = () => {
         <br />
         <NewPartyRegisterBtn/>
       <HomePageMyths/>
-      <Footer/>
+      {/* <Footer/> */}
     </div>
   )
 }
