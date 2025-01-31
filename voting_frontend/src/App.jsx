@@ -4,10 +4,8 @@ import Footer from "./components/Footer.jsx";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Result from "./components/ResultComponent/Result.jsx";
-
 import HomePage from "./components/HomePageContainer/HomePage";
 import SignUp from "./components/Signup.jsx";
-
 import CandidateValidation from './components/Admin/CandidateValidation';
 import AdminHome from './components/Admin/AdminHome';
 import RegisterNewParty from "./components/RegisterPoliticalParty/RegisterNewParty.jsx";
@@ -27,24 +25,14 @@ const App = () => {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/result" element={<Result />} />
-            <Route path="/adminhome" element={<AdminHome
-             />} />
             <Route path="/adminhome" element={<AdminHome />} />
             <Route path="/login" element={<Login />} />
-            {/* <Route path="/validation" element={<Validation />} /> */}
-            <Route
-              path="/registerPoliticalParty"
-              element={<RegisterNewParty />}
-            />
-            <Route
-              path="/validation"
-              element={<CandidateValidation />}
-            />
+            <Route path="/registerPoliticalParty" element={<RegisterNewParty />} />
+            <Route path="/validation" element={<CandidateValidation />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/feedback" element={<Feedback/>}/>
-
-
+            <Route path="/feedback" element={<Feedback />} />
+            {/* Catch-all route for 404 Not Found */}
+            <Route path="*" element={<h2>404 Not Found</h2>} />
           </Routes>
         </div>
       </div>
@@ -53,7 +41,6 @@ const App = () => {
           <Footer />
         </div>
       </div>
-      {/* <LinkCard color="#e4d9df" text="Admin login"/> */}
     </div>
   );
 };
