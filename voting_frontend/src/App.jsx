@@ -11,6 +11,8 @@ import Login from './components/Login';
 
 import CandidateValidation from './components/Admin/CandidateValidation';
 import AdminHome from './components/Admin/AdminHome';
+import RegisterNewParty from "./components/RegisterPoliticalParty/RegisterNewParty.jsx";
+import Login from "./components/Login.jsx";
 
 const App = () => {
   return (
@@ -27,8 +29,15 @@ const App = () => {
             <Route path="/result" element={<Result />} />
             <Route path="/adminhome" element={<AdminHome
              />} />
+            <Route path="/adminhome" element={<AdminHome />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/validation" element={<Validation />} />
             <Route
-              path="/validation"
+              path="/registerPoliticalParty"
+              element={<RegisterNewParty />}
+            />
+            <Route
+              path="/candidateValidation"
               element={<CandidateValidation />}
             />
             <Route path="/signup" element={<SignUp />} />
