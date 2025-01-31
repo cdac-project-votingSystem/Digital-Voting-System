@@ -11,6 +11,7 @@ import AdminHome from './components/Admin/AdminHome';
 import RegisterNewParty from "./components/RegisterPoliticalParty/RegisterNewParty.jsx";
 import Login from "./components/Login.jsx";
 import Feedback from "./components/Feedback/Feedback.jsx";
+import Voting from "./components/Voting/Voting.jsx";
 
 const App = () => {
   return (
@@ -30,9 +31,11 @@ const App = () => {
             <Route path="/registerPoliticalParty" element={<RegisterNewParty />} />
             <Route path="/validation" element={<CandidateValidation />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/feedback" element={<Feedback />} />
-            {/* Catch-all route for 404 Not Found */}
-            <Route path="*" element={<h2>404 Not Found</h2>} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/feedback" element={<Feedback/>}/>
+            
+
+
           </Routes>
         </div>
       </div>
