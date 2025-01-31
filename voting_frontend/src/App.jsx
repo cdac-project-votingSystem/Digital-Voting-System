@@ -13,6 +13,7 @@ import AdminHome from './components/Admin/AdminHome';
 import RegisterNewParty from "./components/RegisterPoliticalParty/RegisterNewParty.jsx";
 import Login from "./components/Login.jsx";
 import Feedback from "./components/Feedback/Feedback.jsx";
+import Voting from "./components/Voting/Voting.jsx";
 
 const App = () => {
   return (
@@ -43,6 +44,8 @@ const App = () => {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
             <Route path="/feedback" element={<Feedback/>}/>
+            <Route path="/voting" element={<Voting/>}/>
+            
 
 
           </Routes>
