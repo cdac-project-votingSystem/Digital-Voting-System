@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 function Feedback() {
-    // State to store form data
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -9,7 +8,6 @@ function Feedback() {
         message: ''
     });
 
-    // Handle input change
     const handleChange = (event) => {
         setFormData({
             ...formData,
@@ -17,13 +15,10 @@ function Feedback() {
         });
     };
 
-    // Handle form submission
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log("Form Data Submitted:", formData);
-        alert("Feedback submitted successfully!");
         
-        // Optional: Reset form after submission
         setFormData({ name: '', email: '', subject: '', message: '' });
     };
 
