@@ -32,8 +32,7 @@ const App = () => {
             <Route path="/validation" element={<CandidateValidation />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/feedback" element={<Feedback/>}/>
-            
+            <Route path="/feedback" element={<Feedback/>}/>      
 
 
           </Routes>

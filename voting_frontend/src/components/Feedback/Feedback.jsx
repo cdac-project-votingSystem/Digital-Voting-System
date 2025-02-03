@@ -1,42 +1,98 @@
-import React from 'react'
+import React, { useState } from 'react';
 
 function Feedback() {
+    // State to store form data
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+    });
+
+    // Handle input change
+    const handleChange = (event) => {
+        setFormData({
+            ...formData,
+            [event.target.name]: event.target.value
+        });
+    };
+
+    // Handle form submission
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        console.log("Form Data Submitted:", formData);
+        alert("Feedback submitted successfully!");
+        
+        // Optional: Reset form after submission
+        setFormData({ name: '', email: '', subject: '', message: '' });
+    };
+
     return (
-        <div className='d-flex align-items-center justify-content-center' style={{height:"100vh"}}>
-            <br /><br />
-            <div className='mt-5' style={{width:"500px", padding:"50px", height:"500px" , border:"4px solid #30acd9"}}>
-                <h3 className='text-center'>Feedback Form</h3>
-                <div>
-                    <form>
-                        <div class="form-group my-2">
-                            <label for="FormControlInput1">Name</label>
-                            <input type="email" class="form-control" id="FormControlInput1" placeholder="Enter Name" />
-                        </div>
-                        <div class="form-group my-2">
-                            <label for="FormControlInput1">Email address</label>
-                            <input type="email" class="form-control" id="FormControlInput1" placeholder="Enter Email" />
-                        </div>
-                        <div class="form-group my-2">
-                            <label for="FormControlInput1">Subject</label>
-                            <input type="email" class="form-control" id="FormControlInput1" placeholder="Enter Subject" />
-                        </div>
-                        <div class="form-group my-2">
-                            <label for="FormControlTextarea1">Message</label>
-                            <textarea class="form-control" id="FormControlTextarea1" rows="3"></textarea>
-                        </div>
-                        <center>
-                            <button className='btn btn-info mt-3'>
-                                Submit
-                            </button>
-
-                        </center>
-                    </form>
-
-                </div>
+        <div className='d-flex align-items-center justify-content-center' style={{ height: "100vh" }}>
+            <div className='mt-5' style={{ width: "600px", padding: "50px", height: "600px", border: "4px solid #30acd9" }}>
+                <h3 className='text-center bg-info p-2 rounded mb-3'>FEEDBACK FORM</h3>
+                <form onSubmit={handleSubmit}>
+                    <div className="form-group my-2">
+                        <label htmlFor="name" className='mb-2'>Name</label>
+                        <input 
+                            type="text" 
+                            className="form-control" 
+                            id="name" 
+                            name="name"
+                            value={formData.name} 
+                            onChange={handleChange} 
+                            placeholder="Enter Name" 
+                            required
+                        />
+                    </div>
+                    <div className="form-group my-2">
+                        <label htmlFor="email" className='mb-2'>Email Address</label>
+                        <input 
+                            type="email" 
+                            className="form-control" 
+                            id="email" 
+                            name="email"
+                            value={formData.email} 
+                            onChange={handleChange} 
+                            placeholder="Enter Email" 
+                            required
+                        />
+                    </div>
+                    <div className="form-group my-2">
+                        <label htmlFor="subject" className='mb-2'>Subject</label>
+                        <input 
+                            type="text" 
+                            className="form-control" 
+                            id="subject" 
+                            name="subject"
+                            value={formData.subject} 
+                            onChange={handleChange} 
+                            placeholder="Enter Subject" 
+                            required
+                        />
+                    </div>
+                    <div className="form-group my-2">
+                        <label htmlFor="message" className='mb-2'>Message</label>
+                        <textarea 
+                            className="form-control" 
+                            id="message" 
+                            name="message"
+                            rows="5"
+                            value={formData.message} 
+                            onChange={handleChange} 
+                            placeholder="Enter your message"
+                            required
+                        ></textarea>
+                    </div>
+                    <center>
+                        <button type="submit" className='btn btn-info mt-3'>
+                            Submit
+                        </button>
+                    </center>
+                </form>
             </div>
-
         </div>
-    )
+    );
 }
 
-export default Feedback
+export default Feedback;
