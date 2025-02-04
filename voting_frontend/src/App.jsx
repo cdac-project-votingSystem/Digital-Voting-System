@@ -12,6 +12,8 @@ import RegisterNewParty from "./components/RegisterPoliticalParty/RegisterNewPar
 import Login from "./components/Login.jsx";
 import Feedback from "./components/Feedback/Feedback.jsx";
 import Voting from "./components/Voting/Voting.jsx";
+import NavbarDashboard from './components/Dashboard/AdminDashboard/AdminNavbarDashboard.jsx';
+import AdminDashBoardHome from "./components/Dashboard/AdminDashboard/AdminDashBoardHome.jsx";
 
 const App = () => {
   return (
@@ -29,13 +31,13 @@ const App = () => {
             <Route path="/adminhome" element={<AdminHome />} />
             <Route path="/login" element={<Login />} />
             <Route path="/registerPoliticalParty" element={<RegisterNewParty />} />
-            <Route path="/validation" element={<CandidateValidation />} />
+            {/* <Route path="/validation" element={<CandidateValidation />} /> */}
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
             <Route path="/feedback" element={<Feedback/>}/>
-            
-
-
+              <Route path="/admin" element={<AdminDashBoardHome/>} >    
+        
+              </Route>
           </Routes>
         </div>
       </div>
