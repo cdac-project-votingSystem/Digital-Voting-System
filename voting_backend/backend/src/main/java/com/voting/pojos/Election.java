@@ -2,28 +2,32 @@ package com.voting.pojos;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import java.util.List;
+import lombok.ToString;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "elections")
+@NoArgsConstructor
+@ToString
 public class Election {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long electionId; 
+    private Long electionId;
+
+    @ManyToOne
+    @JoinColumn(name = "constituency_id", nullable = false)
+    private Constituency constituency;
 
     @Column(nullable = false)
-    private String electionName; 
+    private LocalDateTime electionStartTime;
 
-    private int year; 
-
-    private String state; 
-
-    private String status; // Status: Upcoming, Ongoing, Completed
-
-    @OneToMany(mappedBy = "election", cascade = CascadeType.ALL)
-    private List<Vote> votes; // One-to-Many: Election has multiple votes
+    @Column(nullable = false)
+    private LocalDateTime electionEndTime;
+    
+    
 }
-

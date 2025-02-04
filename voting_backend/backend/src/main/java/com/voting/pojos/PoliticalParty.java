@@ -2,28 +2,36 @@ package com.voting.pojos;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
+
 import java.util.List;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "political_parties")
+@NoArgsConstructor
+@ToString
 public class PoliticalParty {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long politicalPartyId;
+    @Column(name = "party_id")
+    private Long partyId;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "party_name",nullable = false, unique = true,length = 255)
     private String partyName;
 
-    private String leaderName;
-    private String foundedDate;
-    @Column(name = "symbol", columnDefinition = "LONGBLOB")
-    private byte[] symbol;
+    @Column(name = "abbreviation",nullable = false,unique = true,length = 6)
+    private String abbreviation;
     
-
-    @OneToMany(mappedBy = "politicalParty", cascade = CascadeType.ALL)
-    private List<Candidate> candidates;
+    @Column(name = "party_description",length = 500)
+    private String partyDescription;
+    
+    @Lob
+    @Column(name = "party_logo")
+    private byte[] partyLogo;
+  
 }
 

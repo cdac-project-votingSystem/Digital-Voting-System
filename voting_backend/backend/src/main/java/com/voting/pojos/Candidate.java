@@ -8,11 +8,24 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "candidates")
-public class Candidate extends Person {
-    @ManyToOne
-    @JoinColumn(name = "political_party_id", nullable = false)
-    private PoliticalParty politicalParty;
+public class Candidate {
 
-    @Column(nullable = false)
-    private int voteCount = 0; 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "candidate_id")
+	private Long candidateId;
+
+	@OneToOne
+	@JoinColumn(name = "voter_id", nullable = false)
+	private Voter voter;
+
+	
+	@ManyToOne
+	@JoinColumn(name = "political_party_id", nullable = false)
+	private PoliticalParty politicalParty;
+
+	
+	@ManyToOne
+	@JoinColumn(name = "constituency_id", nullable = false)
+	private Constituency constituency;
 }
