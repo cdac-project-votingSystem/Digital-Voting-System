@@ -12,6 +12,7 @@ import RegisterNewParty from "./components/RegisterPoliticalParty/RegisterNewPar
 import Login from "./components/Login.jsx";
 import Feedback from "./components/Feedback/Feedback.jsx";
 import Voting from "./components/Voting/Voting.jsx";
+import ForgotPassword from "./components/ForgotPassword.jsx";
 
 const App = () => {
   return (
@@ -33,8 +34,7 @@ const App = () => {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
             <Route path="/feedback" element={<Feedback/>}/>
-            
-
+            <Route path="/forgot-password" element={<ForgotPassword/>}/>
 
           </Routes>
         </div>
