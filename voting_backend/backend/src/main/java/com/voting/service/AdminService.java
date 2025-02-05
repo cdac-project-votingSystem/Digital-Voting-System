@@ -8,4 +8,6 @@ public interface AdminService {
 	ApiResponse addNewConstituency(ConstituencyAddNew dto);
 	ApiResponse validPoliticalParty(Long id);
 	ApiResponse invalidPoliticalParty(Long id);
+	ApiResponse validCandidate(Long id);
+	ApiResponse invalidCandidate(Long id);
 }

@@ -21,7 +21,7 @@ public class Constituency {
     private String name;
 
     @Column
-    private int totalVoters;  
+    private int totalVoters=0;  
 
     @Column(name = "voters_casted")
     private int votersCast = 0;  

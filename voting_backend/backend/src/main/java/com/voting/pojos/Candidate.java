@@ -28,4 +28,7 @@ public class Candidate {
 	@ManyToOne
 	@JoinColumn(name = "constituency_id", nullable = false)
 	private Constituency constituency;
+	
+	@Column(name = "is_valid")
+	private int isValid =  0;
 }

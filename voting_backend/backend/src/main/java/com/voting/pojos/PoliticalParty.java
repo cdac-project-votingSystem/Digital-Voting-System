@@ -33,8 +33,8 @@ public class PoliticalParty {
     @Column(name = "party_logo")
     private byte[] partyLogo;
     
-    @Column(name ="is_validated")
-    boolean isValidated;
+    @Column(name ="is_valid")
+    private int isValid = 0;
     
   
 }

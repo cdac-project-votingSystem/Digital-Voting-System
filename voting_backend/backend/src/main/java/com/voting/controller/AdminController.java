@@ -23,7 +23,7 @@ public class AdminController {
 		@Autowired
 		private AdminService adminService;
 	
-		@PostMapping("/addconstituency")  
+		@PostMapping("/addConstituency")  
 		public ResponseEntity<?> addConstituency( @RequestBody @Valid ConstituencyAddNew a){
 			return ResponseEntity.ok(adminService.addNewConstituency(a));
 		}
@@ -37,5 +37,24 @@ public class AdminController {
 		public ResponseEntity<?> InvalidatePoliticalParty(@RequestParam Long id){
 				return ResponseEntity.ok(adminService.invalidPoliticalParty(id));
 		}
+		
+		@PatchMapping("/validateCandidate/valid/{id}")
+		public ResponseEntity<?> validateCandidate(@RequestParam Long id){
+			return ResponseEntity.ok(adminService.validCandidate(id));
+		}
+		
+		@PatchMapping("/invalidateCandidate/valid/{id}")
+		public ResponseEntity<?> invalidateCandidate(@RequestParam Long id){
+			return ResponseEntity.ok(adminService.invalidCandidate(id));
+		}
+		
+		@PostMapping("/setElection")
+		public String setElection(@RequestBody String entity) {
+			//TODO: process POST request
+			
+			return entity;
+		}
+		
+		
 		
 }
