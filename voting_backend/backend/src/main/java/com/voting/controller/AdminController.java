@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.voting.dtos.ApiResponse;
 import com.voting.dtos.ConstituencyAddNew;
+import com.voting.dtos.SetElectionAddNew;
 import com.voting.service.AdminService;
 
 import jakarta.validation.Valid;
@@ -49,12 +50,11 @@ public class AdminController {
 		}
 		
 		@PostMapping("/setElection")
-		public String setElection(@RequestBody String entity) {
+		public ResponseEntity<?> setElection(@RequestBody SetElectionAddNew entity) {
 			//TODO: process POST request
 			
-			return entity;
+			return null;
 		}
-		
 		
 		
 }

@@ -2,24 +2,27 @@ package com.voting.dtos;
 
 import java.time.LocalDateTime;
 
-import com.voting.pojos.Constituency;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import jakarta.persistence.Column;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class SetElectionAddNew {
-	 	private int contituency_id;
+    private int constituencyId;
 
-	    private LocalDateTime electionStartTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime electionStartTime;
 
-	    private LocalDateTime electionEndTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime electionEndTime;
 
-		public SetElectionAddNew(int contituency_id, LocalDateTime electionStartTime, LocalDateTime electionEndTime) {
-			super();
-			this.contituency_id = contituency_id;
-			this.electionStartTime = electionStartTime;
-			this.electionEndTime = electionEndTime;
-		}
-	    
-	    
-	    
+    public SetElectionAddNew(int constituencyId, LocalDateTime electionStartTime, LocalDateTime electionEndTime) {
+        this.constituencyId = constituencyId;
+        this.electionStartTime = electionStartTime;
+        this.electionEndTime = electionEndTime;
+    }
 }

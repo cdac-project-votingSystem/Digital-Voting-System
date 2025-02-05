@@ -29,5 +29,4 @@ public class Election {
     @Column(nullable = false)
     private LocalDateTime electionEndTime;
     
-    
 }

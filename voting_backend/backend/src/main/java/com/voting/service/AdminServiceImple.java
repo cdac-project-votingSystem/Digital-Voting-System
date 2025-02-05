@@ -7,11 +7,14 @@ import org.springframework.stereotype.Service;
 import com.voting.custom_exceptions.ResourceNotFoundException;
 import com.voting.dao.CandidateDao;
 import com.voting.dao.ConstituencyDao;
+import com.voting.dao.ElectionDao;
 import com.voting.dao.PoliticalPartyDao;
 import com.voting.dtos.ApiResponse;
 import com.voting.dtos.ConstituencyAddNew;
+import com.voting.dtos.SetElectionAddNew;
 import com.voting.pojos.Candidate;
 import com.voting.pojos.Constituency;
+import com.voting.pojos.Election;
 import com.voting.pojos.PoliticalParty;
 
 import jakarta.transaction.Transactional;
@@ -29,6 +32,8 @@ public class AdminServiceImple implements AdminService {
 	PoliticalPartyDao politicalPartyDao;
 	@Autowired
 	CandidateDao candidateDao;
+	@Autowired
+	ElectionDao	 electionDao;
 	
 	@Override
 	public ApiResponse addNewConstituency(ConstituencyAddNew dto) {
@@ -77,7 +82,21 @@ public class AdminServiceImple implements AdminService {
 		return new ApiResponse("invalidated candidate with id " + c.getCandidateId());
 		
 	}
-	
+
+	@Override
+	public ApiResponse setElectionDate(SetElectionAddNew entity) {
+    
+        Constituency constituency = constituencyDao.findById((long) entity.getConstituencyId())
+                .orElseThrow(() -> new RuntimeException("Constituency not found"));
+
+        
+        Election e = modelMapper.map(entity, Election.class);
+        e.setConstituency(constituency);
+
+        electionDao.save(e);
+
+        return new ApiResponse("Election set successfully for constituency: " + constituency.getName());
+    }
 	
 
 }
