@@ -30,12 +30,12 @@ public class AdminController {
 		
 		@PatchMapping("/validatePoliticalParty/valid/{id}")
 		public ResponseEntity<?> validatePoliticalParty(@RequestParam Long id){
-			return null;
+			return ResponseEntity.ok(adminService.validPoliticalParty(id));
 		}
 		
 		@PatchMapping("/validatePoliticalParty/invalid/{id}")
 		public ResponseEntity<?> InvalidatePoliticalParty(@RequestParam Long id){
-				return null;
+				return ResponseEntity.ok(adminService.invalidPoliticalParty(id));
 		}
 		
 }
