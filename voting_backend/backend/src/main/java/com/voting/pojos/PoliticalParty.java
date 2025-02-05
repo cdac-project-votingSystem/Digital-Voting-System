@@ -32,6 +32,10 @@ public class PoliticalParty {
     @Lob
     @Column(name = "party_logo")
     private byte[] partyLogo;
+    
+    @Column(name ="is_validated")
+    boolean isValidated;
+    
   
 }
 
