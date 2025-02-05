@@ -31,4 +31,7 @@ public class Candidate {
 	
 	@Column(name = "is_valid")
 	private int isValid =  0;
+	
+	@Column
+	private int votes= 0;
 }

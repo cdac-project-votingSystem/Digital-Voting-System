@@ -1,5 +1,8 @@
 package com.voting.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +13,9 @@ import com.voting.dao.ConstituencyDao;
 import com.voting.dao.ElectionDao;
 import com.voting.dao.PoliticalPartyDao;
 import com.voting.dtos.ApiResponse;
+import com.voting.dtos.CandidateResultHelperDTO;
 import com.voting.dtos.ConstituencyAddNew;
+import com.voting.dtos.PublishElectionResponseDTO;
 import com.voting.dtos.SetElectionAddNew;
 import com.voting.pojos.Candidate;
 import com.voting.pojos.Constituency;
@@ -97,6 +102,37 @@ public class AdminServiceImple implements AdminService {
 
         return new ApiResponse("Election set successfully for constituency: " + constituency.getName());
     }
+
+	@Override
+	public PublishElectionResponseDTO publishResult(Long constituencyId) {
+		  Constituency constituency = constituencyDao.findById(constituencyId)
+		            .orElseThrow(() -> new ResourceNotFoundException("Constituency not found"));
+		  List<CandidateResultHelperDTO> candidateResults = getCandidateResultsForConstituency(constituencyId);
+		  int totalVoters = constituency.getTotalVoters();
+		  int votesCasted = constituency.getVotesCast();
+		  
+		  return new PublishElectionResponseDTO(
+		            constituency.getName(),
+		            totalVoters,
+		            votesCasted,
+		            candidateResults
+		    );
+		  
+	}
+
+	private List<CandidateResultHelperDTO> getCandidateResultsForConstituency(Long constituencyId) {
+		List<Candidate> candidateList = candidateDao.findAllByConstituency_Id(constituencyId);
+		List<CandidateResultHelperDTO> candidateHelperList = new ArrayList<>();
+		for(Candidate c : candidateList) {
+			CandidateResultHelperDTO dto = new CandidateResultHelperDTO(
+	                c.getVoter().getFirstName()+ " "+ c.getVoter().getLastName(),
+	                c.getPoliticalParty().getAbbreviation(),
+	                c.getVotes());
+			candidateHelperList.add(dto);
+		}
+		return candidateHelperList;
+	}
 	
+
 
 }

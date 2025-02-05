@@ -23,8 +23,8 @@ public class Constituency {
     @Column
     private int totalVoters=0;  
 
-    @Column(name = "voters_casted")
-    private int votersCast = 0;  
+    @Column(name = "votes_casted")
+    private int votesCast = 0;  
 
 
 

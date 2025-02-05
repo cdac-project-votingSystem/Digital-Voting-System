@@ -2,6 +2,7 @@ package com.voting.service;
 
 import com.voting.dtos.ApiResponse;
 import com.voting.dtos.ConstituencyAddNew;
+import com.voting.dtos.PublishElectionResponseDTO;
 import com.voting.dtos.SetElectionAddNew;
 
 public interface AdminService {
@@ -12,4 +13,5 @@ public interface AdminService {
 	ApiResponse validCandidate(Long id);
 	ApiResponse invalidCandidate(Long id);
 	ApiResponse setElectionDate(SetElectionAddNew entity);
+	PublishElectionResponseDTO publishResult(Long constituencyId);
 }
