@@ -5,7 +5,8 @@ import com.voting.dtos.VoterSignupDTO;
 
 public interface VoterService {
 
-  ApiResponse signup(VoterSignupDTO entity) 
+  ApiResponse signup(VoterSignupDTO entity);
+  
 		
 	
 }
