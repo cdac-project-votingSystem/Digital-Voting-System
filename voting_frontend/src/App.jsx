@@ -12,13 +12,14 @@ import Login from "./components/Login.jsx";
 import Feedback from "./components/Feedback/Feedback.jsx";
 import Voting from "./components/Voting/Voting.jsx";
 import ForgotPassword from "./components/ForgotPassword.jsx";
-import NavbarDashboard from './components/Dashboard/AdminDashboard/AdminNavbarDashboard.jsx';
+import NavbarDashboard from "./components/Dashboard/AdminDashboard/AdminNavbarDashboard.jsx";
 import AdminDashBoardHome from "./components/Dashboard/AdminDashboard/AdminDashBoardHome.jsx";
 import Verification from "./components/Dashboard/AdminDashboard/Verification.jsx";
 import PoliticalPartyVerfication from "./components/Dashboard/AdminDashboard/PoliticalPartyVerfication.jsx";
 import AddConsitituency from "./components/Dashboard/AdminDashboard/AddConsitituency.jsx";
 import ViewFeedback from "./components/Dashboard/AdminDashboard/ViewFeedback.jsx";
 import ScheduleElection from "./components/Dashboard/AdminDashboard/ScheduleElection.jsx";
+import UserDashboard from "./components/Dashboard/UserDashboard/UserDashboard.jsx";
 
 const App = () => {
   return (
@@ -44,7 +45,10 @@ const App = () => {
 
             <Route path="/feedback" element={<Feedback />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/registerPoliticalParty" element={<RegisterNewParty />} />
+            <Route
+              path="/registerPoliticalParty"
+              element={<RegisterNewParty />}
+            />
             {/* <Route path="/validation" element={<CandidateValidation />} /> */}
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
@@ -60,6 +64,10 @@ const App = () => {
             <Route path="schedule_elections" element={<ScheduleElection />} />
             <Route path="view_feedback" element={<ViewFeedback />} />
           </Route>
+            <Route path="/feedback" element={<Feedback />} />
+            <Route path="/admin" element={<AdminDashBoardHome />} />
+
+            <Route path="/user-dashboard" element={<UserDashboard />} />
           </Routes>
         </div>
       </div>
