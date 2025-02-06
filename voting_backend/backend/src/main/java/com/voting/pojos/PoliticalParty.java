@@ -29,13 +29,13 @@ public class PoliticalParty {
     @Column(name = "party_description",length = 500)
     private String partyDescription;
     
-    @Lob
-    @Column(name = "party_logo")
-    private byte[] partyLogo;
     
     @Column(name ="is_valid")
     private int isValid = 0;
     
+    @Lob
+    @Column(name = "party_logo")
+    private byte[] partyLogo;
   
 }
 

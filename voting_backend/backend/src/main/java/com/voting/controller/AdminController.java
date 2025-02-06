@@ -36,25 +36,25 @@ public class AdminController {
 		// For Validate Political Party (Success)
 		@PatchMapping("/validatePoliticalParty/valid/{id}")
 		public ResponseEntity<?> validatePoliticalParty(@RequestParam Long id){
-		    return ResponseEntity.status(HttpStatus.NO_CONTENT).body(adminService.validPoliticalParty(id));
+		    return ResponseEntity.status(HttpStatus.CREATED).body(adminService.validPoliticalParty(id));
 		}
 
 		// For Invalidate Political Party (Success)
 		@PatchMapping("/validatePoliticalParty/invalid/{id}")
 		public ResponseEntity<?> InvalidatePoliticalParty(@RequestParam Long id){
-		    return ResponseEntity.status(HttpStatus.NO_CONTENT).body(adminService.invalidPoliticalParty(id));
+		    return ResponseEntity.status(HttpStatus.CREATED).body(adminService.invalidPoliticalParty(id));
 		}
 
 		// For Validate Candidate (Success)
 		@PatchMapping("/validateCandidate/valid/{id}")
 		public ResponseEntity<?> validateCandidate(@RequestParam Long id){
-		    return ResponseEntity.status(HttpStatus.NO_CONTENT).body(adminService.validCandidate(id));
+		    return ResponseEntity.status(HttpStatus.CREATED).body(adminService.validCandidate(id));
 		}
 
 		// For Invalidate Candidate (Success)
-		@PatchMapping("/invalidateCandidate/valid/{id}")
+		@PatchMapping("/invalidateCandidate/invalid/{id}")
 		public ResponseEntity<?> invalidateCandidate(@RequestParam Long id){
-		    return ResponseEntity.status(HttpStatus.NO_CONTENT).body(adminService.invalidCandidate(id));
+		    return ResponseEntity.status(HttpStatus.CREATED).body(adminService.invalidCandidate(id));
 		}
 
 		// For Set Election (Success)
@@ -63,13 +63,9 @@ public class AdminController {
 		    return ResponseEntity.status(HttpStatus.CREATED).body(adminService.setElectionDate(entity));
 		}
 
-		// For Publish Election Result (Success)
-		@GetMapping("/publishResult/{id}")
-		public ResponseEntity<PublishElectionResponseDTO> publishElectionResult(@RequestParam Long id) {
-		    PublishElectionResponseDTO response = adminService.publishResult(id);
-		    return ResponseEntity.ok(response);
-		}
+		
 
+		//feedabcak yet to add disxpalay all
 
 		
 		

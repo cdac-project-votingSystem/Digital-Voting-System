@@ -13,5 +13,5 @@ public interface AdminService {
 	ApiResponse validCandidate(Long id);
 	ApiResponse invalidCandidate(Long id);
 	ApiResponse setElectionDate(SetElectionAddNew entity);
-	PublishElectionResponseDTO publishResult(Long constituencyId);
+	
 }

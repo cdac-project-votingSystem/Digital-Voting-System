@@ -103,35 +103,7 @@ public class AdminServiceImple implements AdminService {
         return new ApiResponse("Election set successfully for constituency: " + constituency.getName());
     }
 
-	@Override
-	public PublishElectionResponseDTO publishResult(Long constituencyId) {
-		  Constituency constituency = constituencyDao.findById(constituencyId)
-		            .orElseThrow(() -> new ResourceNotFoundException("Constituency not found"));
-		  List<CandidateResultHelperDTO> candidateResults = getCandidateResultsForConstituency(constituencyId);
-		  int totalVoters = constituency.getTotalVoters();
-		  int votesCasted = constituency.getVotesCast();
-		  
-		  return new PublishElectionResponseDTO(
-		            constituency.getName(),
-		            totalVoters,
-		            votesCasted,
-		            candidateResults
-		    );
-		  
-	}
 
-	private List<CandidateResultHelperDTO> getCandidateResultsForConstituency(Long constituencyId) {
-		List<Candidate> candidateList = candidateDao.findAllByConstituency_Id(constituencyId);
-		List<CandidateResultHelperDTO> candidateHelperList = new ArrayList<>();
-		for(Candidate c : candidateList) {
-			CandidateResultHelperDTO dto = new CandidateResultHelperDTO(
-	                c.getVoter().getFirstName()+ " "+ c.getVoter().getLastName(),
-	                c.getPoliticalParty().getAbbreviation(),
-	                c.getVotes());
-			candidateHelperList.add(dto);
-		}
-		return candidateHelperList;
-	}
 	
 
 

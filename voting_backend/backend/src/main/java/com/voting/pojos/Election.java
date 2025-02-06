@@ -29,6 +29,6 @@ public class Election {
     @Column(nullable = false)
     private LocalDateTime electionEndTime;
     
-    @Column
-    private boolean isPublished =false;
+//    @Column
+//    private boolean isPublished =false;
 }

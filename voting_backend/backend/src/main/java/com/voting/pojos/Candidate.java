@@ -19,11 +19,9 @@ public class Candidate {
 	@JoinColumn(name = "voter_id", nullable = false)
 	private Voter voter;
 
-	
 	@ManyToOne
 	@JoinColumn(name = "political_party_id", nullable = false)
 	private PoliticalParty politicalParty;
-
 	
 	@ManyToOne
 	@JoinColumn(name = "constituency_id", nullable = false)
@@ -34,4 +32,8 @@ public class Candidate {
 	
 	@Column
 	private int votes= 0;
+	
+	@Lob
+	private byte[] candidateImage;
+
 }
