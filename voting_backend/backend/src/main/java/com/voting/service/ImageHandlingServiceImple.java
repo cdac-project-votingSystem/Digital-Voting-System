@@ -3,6 +3,7 @@ package com.voting.service;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.voting.custom_exceptions.ResourceNotFoundException;
@@ -12,6 +13,10 @@ import com.voting.dtos.ApiResponse;
 import com.voting.pojos.Candidate;
 import com.voting.pojos.PoliticalParty;
 
+import jakarta.transaction.Transactional;
+
+@Service
+@Transactional
 public class ImageHandlingServiceImple implements ImageHandlingService {
 
 	@Autowired

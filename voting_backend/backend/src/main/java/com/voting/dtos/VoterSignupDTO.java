@@ -19,10 +19,9 @@ public class VoterSignupDTO {
 	    private String lastName;
 	    private String contactNumber;
 	    private int constituencyId;
-	    private boolean hasVoted = false;
 	    private String adhaarNumber;
 		public VoterSignupDTO(String email, String password, String firstName, String lastName, String contactNumber,
-				int constituencyId, boolean hasVoted, String adhaarNumber) {
+				int constituencyId, String adhaarNumber) {
 			super();
 			this.email = email;
 			this.password = password;
@@ -30,7 +29,7 @@ public class VoterSignupDTO {
 			this.lastName = lastName;
 			this.contactNumber = contactNumber;
 			this.constituencyId = constituencyId;
-			this.hasVoted = hasVoted;
+		
 			this.adhaarNumber = adhaarNumber;
 		}
 		

@@ -26,7 +26,7 @@ public class VoterServiceImple implements VoterService {
 	@Autowired
 	ConstituencyDao constituencyDao;
 	@Autowired
-	ModelMapper  modelMapper;
+	ModelMapper modelMapper;
 	
 	@Override
 	public ApiResponse signup(VoterSignupDTO entity) {

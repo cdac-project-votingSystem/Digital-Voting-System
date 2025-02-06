@@ -9,6 +9,6 @@ import com.voting.pojos.Voter;
 
 @Repository
 public interface VoterDao extends JpaRepository<Voter, Long> {
-	Optional<Voter> findByEmailandPassword(String email , String password) ;
+//	Optional<Voter> findByEmailandPassword(String email , String password) ;
 	
 }

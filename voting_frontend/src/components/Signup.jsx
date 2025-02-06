@@ -9,8 +9,7 @@ const Signup = () => {
     gender: "",
     address: "",
     state: "",
-    district: "",
-    pincode: "",
+
     email: "",
     phoneNumber: "",
     aadhaarNumber: "",
