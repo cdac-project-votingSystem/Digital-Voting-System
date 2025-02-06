@@ -40,11 +40,16 @@ const RegisterNewParty = () => {
   };
 
   return (
-    <div className="container mt-5">
+      <div>
+        <br /><br /><br />
+
+
+
+    <div className="container mt-5 card p-4" style={{width:"700px"}}>
       <Header />
       <br /><br />
-      <h1 className="text-center mb-4">Register New Party</h1>
-      <form onSubmit={handleSubmit} className="border p-4 rounded bg-light">
+      <h2 className="text-center text-primary">Register New Party</h2>
+      <form onSubmit={handleSubmit} className="">
         <div className="mb-3">
           <label htmlFor="logo" className="form-label">
             Logo:
@@ -114,6 +119,7 @@ const RegisterNewParty = () => {
           Register Party
         </button>
       </form>
+    </div>
     </div>
   );
 };

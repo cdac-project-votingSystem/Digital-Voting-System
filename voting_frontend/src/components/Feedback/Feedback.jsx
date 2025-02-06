@@ -23,9 +23,12 @@ function Feedback() {
     };
 
     return (
+        <div>
+            <br /><br />
+        
         <div className='d-flex align-items-center justify-content-center' style={{ height: "100vh" }}>
-            <div className='mt-5' style={{ width: "600px", padding: "50px", height: "600px", border: "4px solid #30acd9" }}>
-                <h3 className='text-center bg-info p-2 rounded mb-3'>FEEDBACK FORM</h3>
+            <div className='mt-5 card' style={{ width: "600px", padding: "50px", height: "650px" }}>
+                <h3 className='text-center text-primary p-2 rounded mb-1 font fw-bold'>FEEDBACK FORM</h3>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group my-2">
                         <label htmlFor="name" className='mb-2'>Name</label>
@@ -80,13 +83,14 @@ function Feedback() {
                         ></textarea>
                     </div>
                     <center>
-                        <button type="submit" className='btn btn-info mt-3'>
+                        <button type="submit" className='btn btn-primary mt-3'>
                             Submit
                         </button>
                     </center>
                 </form>
             </div>
         </div>
+            </div>
     );
 }
 

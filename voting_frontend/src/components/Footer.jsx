@@ -45,7 +45,7 @@ const Footer = () => {
     
         <center>
         <Link to="/feedback">
-          <button className="btn btn-info">Feedback</button>
+          <button className="btn btn-primary">Feedback</button>
        </Link>
       </center>
 

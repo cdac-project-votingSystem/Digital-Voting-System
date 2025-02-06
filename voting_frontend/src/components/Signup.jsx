@@ -108,10 +108,13 @@ const Signup = () => {
 
   return (
     <div className="signup-page">
+      <br />
+      <br /><br />
+      <br />
       <Header />
       <div className="signup-container">
         <div className="signup-header">
-          <h1>Election Commission of India</h1>
+          <h1>Digital Voting System</h1>
           <h2>Voter Registration</h2>
         </div>
         <form onSubmit={handleSubmit} className="signup-form">
