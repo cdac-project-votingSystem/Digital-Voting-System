@@ -1,5 +1,6 @@
 package com.voting.custom_exception_handler;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -38,8 +39,14 @@ public class GlobalExceptionHandler {
 	public ApiResponse handleResourceNotFoundException(ResourceNotFoundException e) {
 	    return new ApiResponse(e.getMessage());
 	}
-
-
+	
+	//handle io exceoption
+	@ExceptionHandler(IOException.class)
+	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+	public ApiResponse handleAnyException(IOException e) {
+		System.out.println("exception while handling image " + e);
+		return new ApiResponse(e.getMessage());
+	}
 		
 		// handle any other remaining exc => catch all
 		@ExceptionHandler(RuntimeException.class)

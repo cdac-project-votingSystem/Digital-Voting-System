@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.voting.dao.PoliticalPartyDao;
+import com.voting.dtos.PoliticalPartyRequestRegister;
 import com.voting.dtos.PoliticalPartyResponseDTO;
 import com.voting.pojos.PoliticalParty;
 
@@ -43,6 +44,13 @@ public class PoliticalPartyServiceImple implements PoliticalPartyService {
 			res.add(temp);
 		 }
 		 return res;
+	}
+
+	@Override
+	public Long registerParty(PoliticalPartyRequestRegister entity) {
+		 PoliticalParty party= modelMapper.map(entity, PoliticalParty.class);
+		 politicalPartyDao.save(party);
+		 return party.getPartyId();
 	}
 	
 	
