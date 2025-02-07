@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/advanceSearch")
 public class AdvanceSearchController {
 	
+<<<<<<< HEAD
 	
 	//pid - political party id   cid - constituency id 
 	@Autowired
@@ -35,4 +36,6 @@ public class AdvanceSearchController {
 		return ResponseEntity.ok(res);
 	}	
 	
+=======
+>>>>>>> v2
 }

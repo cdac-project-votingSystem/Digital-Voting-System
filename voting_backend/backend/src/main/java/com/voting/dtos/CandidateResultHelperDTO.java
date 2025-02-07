@@ -18,6 +18,4 @@ public class CandidateResultHelperDTO {
 		this.politicalParty = politicalParty;
 		this.votes = votes;
 	}
-	
-	
 }
