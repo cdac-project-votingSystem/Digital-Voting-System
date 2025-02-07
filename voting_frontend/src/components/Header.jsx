@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom"; 
 import logo from "../assests/header/eci-logo.svg";
 
 const Header = () => {
   const location = useLocation();
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
 
   const isActive = (path) => location.pathname === path;
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!isDropdownOpen); 
+  };
+
+  const handleLogout = () => {
+    setDropdownOpen(false);
+  };
 
   return (
     <div className="container">
@@ -27,6 +36,29 @@ const Header = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav ms-auto">
+            <li className="nav-item">
+                <span
+                  className="nav-link"
+                  onClick={toggleDropdown}
+                  style={{ cursor: "pointer" }}
+                >
+                  Hello, Jhon Doe
+                </span>
+                {isDropdownOpen && (
+                  <ul className="dropdown-menu show" aria-labelledby="navbarDropdown">
+                    <li>
+                      <Link className="dropdown-item" to="/update-profile">
+                        Update Profile
+                      </Link>
+                    </li>
+                    <li>
+                      <button className="dropdown-item" onClick={handleLogout}>
+                        Logout
+                      </button>
+                    </li>
+                  </ul>
+                )}
+              </li>
               <li className="nav-item">
                 <Link 
                   className={`nav-link ${isActive('/login') ? 'd-none' : ''}`} 

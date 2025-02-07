@@ -23,6 +23,7 @@ import UpcomingElections from "./components/Dashboard/UserDashboard/UpcomingElec
 import UserInfo from "./components/Dashboard/UserDashboard/UserInfo.jsx";
 import VotingPage from "./components/Dashboard/UserDashboard/Voting.jsx";
 import Voting from "./components/Dashboard/UserDashboard/Voting.jsx";
+import UpdateProfile from "./components/UpdateProfile.jsx";
 
 const App = () => {
   return (
@@ -86,7 +87,9 @@ const App = () => {
             </Route>
 
             <Route path="/voting" element={<Voting />} />
+          <Route path="/update-profile" element={<UpdateProfile/>}/>
           </Routes>
+
         </div>
       </div>
       <div className="row">
