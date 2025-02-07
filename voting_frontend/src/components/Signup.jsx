@@ -108,7 +108,8 @@ const Signup = () => {
   return (
     <div className="signup-page">
       <br />
-      <br /><br />
+      <br />
+      <br />
       <br />
       <Header />
       <div className="signup-container">
@@ -118,7 +119,7 @@ const Signup = () => {
         </div>
         <form onSubmit={handleSubmit} className="signup-form">
           <div className="form-group">
-            <label htmlFor="fullName">Full Name:</label>
+            <label htmlFor="fullName">Full Name</label>
             <input
               type="text"
               id="fullName"
@@ -135,7 +136,7 @@ const Signup = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="dateOfBirth">Date of Birth:</label>
+            <label htmlFor="dateOfBirth">Date of Birth</label>
             <input
               type="date"
               id="dateOfBirth"
@@ -151,7 +152,7 @@ const Signup = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="gender">Gender:</label>
+            <label htmlFor="gender">Gender</label>
             <select
               id="gender"
               name="gender"
@@ -169,7 +170,7 @@ const Signup = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="address">Address:</label>
+            <label htmlFor="address">Address</label>
             <input
               type="text"
               id="address"
@@ -183,7 +184,7 @@ const Signup = () => {
             {errors.address && <span className="error">{errors.address}</span>}
           </div>
 
-          <div className="form-group">
+          {/* <div className="form-group">
             <label htmlFor="state">State:</label>
             <input
               type="text"
@@ -196,8 +197,8 @@ const Signup = () => {
               required
             />
             {errors.state && <span className="error">{errors.state}</span>}
-          </div>
-
+          </div> */}
+          {/* 
           <div className="form-group">
             <label htmlFor="district">District:</label>
             <input
@@ -213,9 +214,9 @@ const Signup = () => {
             {errors.district && (
               <span className="error">{errors.district}</span>
             )}
-          </div>
+          </div> */}
 
-          <div className="form-group">
+          {/* <div className="form-group">
             <label htmlFor="pincode">Pincode:</label>
             <input
               type="text"
@@ -228,10 +229,10 @@ const Signup = () => {
               required
             />
             {errors.pincode && <span className="error">{errors.pincode}</span>}
-          </div>
+          </div> */}
 
           <div className="form-group">
-            <label htmlFor="email">Email:</label>
+            <label htmlFor="email">Email</label>
             <input
               type="email"
               id="email"
@@ -246,7 +247,7 @@ const Signup = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="phoneNumber">Phone Number:</label>
+            <label htmlFor="phoneNumber">Phone Number</label>
             <input
               type="tel"
               id="phoneNumber"
@@ -263,7 +264,7 @@ const Signup = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="aadhaarNumber">Aadhaar Number:</label>
+            <label htmlFor="aadhaarNumber">Aadhaar Number</label>
             <input
               type="text"
               id="aadhaarNumber"
@@ -279,21 +280,8 @@ const Signup = () => {
             )}
           </div>
 
-          {/* <div className="form-group">
-            <label htmlFor="voterId">Voter ID (if any):</label>
-            <input
-              type="text"
-              id="voterId"
-              name="voterId"
-              value={formData.voterId}
-              onChange={handleChange}
-              className="form-control"
-              placeholder="Enter your Voter ID (optional)"
-            />
-          </div> */}
-
           <div className="form-group">
-            <label htmlFor="password">Password:</label>
+            <label htmlFor="password">Password</label>
             <input
               type="password"
               id="password"
@@ -310,7 +298,7 @@ const Signup = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="confirmPassword">Confirm Password:</label>
+            <label htmlFor="confirmPassword">Confirm Password</label>
             <input
               type="password"
               id="confirmPassword"

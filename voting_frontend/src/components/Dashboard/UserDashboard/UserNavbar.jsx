@@ -7,19 +7,34 @@ const UserNavbar = () => {
       <br />
       <ul className="nav nav-tabs flex-column">
         <li className="nav-item">
-          <NavLink className={({ isActive }) => (isActive ? "active nav-link" : "nav-link")} to="/user-info">
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? "active nav-link" : "nav-link"
+            }
+            to="/user-dashboard/user-info"
+          >
             User Information
           </NavLink>
         </li>
         <br />
         <li className="nav-item">
-          <NavLink className={({ isActive }) => (isActive ? "active nav-link" : "nav-link")} to="/vote">
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? "active nav-link" : "nav-link"
+            }
+            to="/user-dashboard/voting"
+          >
             Voting Page
           </NavLink>
         </li>
         <br />
         <li className="nav-item">
-          <NavLink className={({ isActive }) => (isActive ? "active nav-link" : "nav-link")} to="/upcoming-elections">
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? "active nav-link" : "nav-link"
+            }
+            to="/user-dashboard/upcoming-elections"
+          >
             Upcoming Elections
           </NavLink>
         </li>
