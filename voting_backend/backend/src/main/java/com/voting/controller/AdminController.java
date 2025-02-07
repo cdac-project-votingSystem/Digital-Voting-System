@@ -62,11 +62,5 @@ public class AdminController {
 		public ResponseEntity<?> setElection(@RequestBody SetElectionAddNew entity) {
 		    return ResponseEntity.status(HttpStatus.CREATED).body(adminService.setElectionDate(entity));
 		}
-
-		
-
-		//feedabcak yet to add disxpalay all
-
-		
 		
 }

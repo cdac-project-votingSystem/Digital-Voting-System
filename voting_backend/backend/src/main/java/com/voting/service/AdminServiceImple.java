@@ -101,10 +101,6 @@ public class AdminServiceImple implements AdminService {
         electionDao.save(e);
 
         return new ApiResponse("Election set successfully for constituency: " + constituency.getName());
-    }
-
-
-	
-
+    }	
 
 }

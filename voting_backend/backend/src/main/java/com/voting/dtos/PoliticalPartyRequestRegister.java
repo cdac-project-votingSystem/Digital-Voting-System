@@ -20,6 +20,4 @@ public class PoliticalPartyRequestRegister {
 			this.abbreviation = abbreviation;
 			this.partyDescription = partyDescription;
 		}
-
-	    
 }
