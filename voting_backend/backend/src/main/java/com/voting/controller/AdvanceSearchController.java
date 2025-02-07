@@ -26,7 +26,7 @@ public class AdvanceSearchController {
 	
 	
 	@GetMapping("/{pid}/{cid}")
-	public ResponseEntity<?> getMethodName(@PathVariable Long pid, Long cid ) {
+	public ResponseEntity<?> getMethodName(@PathVariable Long pid,@PathVariable Long cid ) {
 		
 		List<AdvanceSearchResponseDTO> res= advanceSearchService.getCandidate(pid,cid);
 		return ResponseEntity.ok(res);
