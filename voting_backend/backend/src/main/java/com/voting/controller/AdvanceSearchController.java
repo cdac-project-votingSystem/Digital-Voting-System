@@ -5,16 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.voting.dtos.AdvanceSearchResponseDTO;
-import com.voting.dtos.ApiResponse;
 import com.voting.service.AdvanceSearchService;
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -22,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/advanceSearch")
 public class AdvanceSearchController {
 	
-<<<<<<< HEAD
 	
 	//pid - political party id   cid - constituency id 
 	@Autowired
@@ -36,6 +32,4 @@ public class AdvanceSearchController {
 		return ResponseEntity.ok(res);
 	}	
 	
-=======
->>>>>>> v2
 }

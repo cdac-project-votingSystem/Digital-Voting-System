@@ -1,19 +1,20 @@
 package com.voting.pojos;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @Table(name = "voters")
@@ -25,21 +26,11 @@ public class Voter extends BaseEntity {
     
     @Column(name = "first_name", length = 255, nullable = false)
     private String firstName;
-<<<<<<< HEAD
-	
-	@Column(name = "last_name",length = 255)
-	private String lastName;
- 
-	private LocalDate dob;
-	
-    @Column(name = "contact_number",length = 10)
-=======
 
     @Column(name = "last_name", length = 255, nullable = false)
     private String lastName;
 
     @Column(name = "contact_number", length = 10, nullable = false, unique = true)
->>>>>>> v2
     private String contactNumber;
 
     @Column(name = "dob", nullable = false)

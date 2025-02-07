@@ -28,10 +28,7 @@ public class HomeController {
 	FeebackService feedbackService;
 	
 	@PostMapping("/signup")
-<<<<<<< HEAD
-	public ResponseEntity<?> postMethodName(@RequestBody @Valid VoterSignupDTO entity) {
-=======
-	public ResponseEntity<ApiResponse> signup(@RequestBody VoterSignupDTO voterSignupDTO) {
+	public ResponseEntity<?> signup(@RequestBody @Valid VoterSignupDTO voterSignupDTO) {
         ApiResponse apiResponse = voterService.signup(voterSignupDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
     }
@@ -40,7 +37,6 @@ public class HomeController {
 	public ResponseEntity<ApiResponse> login(
 	        @RequestParam String email,
 	        @RequestParam String password) {
->>>>>>> v2
 		
 		ApiResponse apiResponse = voterService.login(email, password);
 

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,9 +23,6 @@ import com.voting.dtos.PoliticalPartyRequestUpdate;
 import com.voting.dtos.PoliticalPartyResponseDTO;
 import com.voting.service.ImageHandlingService;
 import com.voting.service.PoliticalPartyService;
-
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -66,9 +64,7 @@ public class PoliticalPartyController {
 	    return ResponseEntity.ok(parties);  // Returns HTTP 200 with the list
 	}
 	
-<<<<<<< HEAD
 	// show all candidate for a  pp for a consti 
-=======
 //	@GetMapping("/{pid}/{constid}")
 //	public ResponseEntity<List<PoliticalPartyResponseDTO>> getMethodName(@PathVariable Long pid, @PathVariable Long constid) {
 //		if(constid == -1) {
@@ -93,7 +89,6 @@ public class PoliticalPartyController {
 	}
 	
 	
->>>>>>> v2
 	
 
 }
