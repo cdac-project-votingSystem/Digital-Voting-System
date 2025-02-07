@@ -47,7 +47,7 @@ public class PoliticalPartyServiceImple implements PoliticalPartyService {
 	}
 
 	@Override
-	public Long registerParty(PoliticalPartyRequestRegister entity) {
+	public Long registerParty(PoliticalPartyRequestRegister entity ) {
 		 PoliticalParty party= modelMapper.map(entity, PoliticalParty.class);
 		 politicalPartyDao.save(party);
 		 return party.getPartyId();

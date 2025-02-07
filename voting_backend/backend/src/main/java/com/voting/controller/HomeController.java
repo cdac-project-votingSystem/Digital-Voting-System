@@ -13,6 +13,8 @@ import com.voting.dtos.ApiResponse;
 import com.voting.dtos.VoterSignupDTO;
 import com.voting.service.VoterService;
 
+import jakarta.validation.Valid;
+
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class HomeController {	
@@ -20,7 +22,7 @@ public class HomeController {
 	VoterService voterService;
 	
 	@PostMapping("/signup")
-	public ResponseEntity<?> postMethodName(@RequestBody VoterSignupDTO entity) {
+	public ResponseEntity<?> postMethodName(@RequestBody @Valid VoterSignupDTO entity) {
 		
 		ApiResponse res =  voterService.signup(entity);
 		

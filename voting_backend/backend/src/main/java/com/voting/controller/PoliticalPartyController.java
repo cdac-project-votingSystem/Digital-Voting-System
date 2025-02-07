@@ -64,15 +64,7 @@ public class PoliticalPartyController {
 	    return ResponseEntity.ok(parties);  // Returns HTTP 200 with the list
 	}
 	
-//	@GetMapping("/{pid}/{constid}")
-//	public ResponseEntity<List<PoliticalPartyResponseDTO>> getMethodName(@PathVariable Long pid, @PathVariable Long constid) {
-//		if(constid == -1) {
-//			
-//		}
-//		else {
-//			
-//		}
-//	}
+	// show all candidate for a  pp for a consti 
 	
-	
+
 }

@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -26,6 +27,7 @@ public class Voter extends BaseEntity {
 	@Column(name = "last_name",length = 255)
 	private String lastName;
  
+	private LocalDate dob;
 	
     @Column(name = "contact_number",length = 10)
     private String contactNumber;
