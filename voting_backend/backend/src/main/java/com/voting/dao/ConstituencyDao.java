@@ -7,5 +7,5 @@ import com.voting.pojos.Constituency;
 
 @Repository
 public interface ConstituencyDao extends JpaRepository<Constituency,Long> {
-
+	
 }

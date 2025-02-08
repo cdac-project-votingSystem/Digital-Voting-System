@@ -143,7 +143,9 @@ public class VoterServiceImple implements VoterService {
 
         // Assign Constituency to Voter
         voter.setConstituency(constituency);
-
+        int prev = constituency.getTotalVoters();
+        constituency.setTotalVoters(prev+1);
+        constituencyDao.save(constituency);
         voterDao.save(voter);
 
         // Return success message

@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 // import { toast } from 'react-toastify'
 import { Label } from "./../../node_modules/recharts/es6/component/Label";
 import { submitForm } from "../API/FromSubmission";
+import { useNavigate } from "react-router-dom";
+
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -18,6 +20,7 @@ const Signup = () => {
     constituencyId: null,
     adhaarNumber: "", //ok
   });
+  const navigate = useNavigate();
 
   const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -29,14 +32,24 @@ const Signup = () => {
     });
   };
 
-  let constituencyList = new Array();
+  const [constituencyList, setConstituencyList] = useState([]);
+
 
   const onLoadForm = async () => {
-    const result = await getAllConstituency();
-    result.data.map((res) => constituencyList.push(res));
-    console.log(result);
-    if (result["status"] == "error") toast.error(result.error);
+    try {
+      const result = await getAllConstituency();
+      
+      if (result.status === "error") {
+        toast.error(result.error);
+      } else {
+        setConstituencyList(result.data); // ✅ Updates state
+      }
+    } catch (error) {
+      console.error("Error fetching constituencies:", error);
+      toast.error("Failed to load constituencies");
+    }
   };
+  
 
   useEffect(() => {
     onLoadForm();
@@ -55,14 +68,19 @@ const Signup = () => {
     if (validateForm()) {
       // console.log("Signup Form Data Submitted:", formData);
       const res = await submitForm(formData);
-      if(res.data.status == 400)
+      console.log(res)
+      if(res.status == 'error')
       {
-        Object.values(res.data).forEach((value)=>{
+          console.log("from 400")
+          Object.values(res.error.response.data).forEach((value)=>{
           toast.error(value);
         })
       }
       else{
        toast.success(res.data.message) ;
+       setTimeout(() => {
+        navigate("/login"); 
+      }, 4000);
       }
       //logic after backend code
     } else {
@@ -164,6 +182,7 @@ const Signup = () => {
               name="constituencyId"
               value={formData.constituencyId}
               onChange={handleChange}
+               className="form-control"
             >
               <option value="">Select Constituency</option>
               {constituencyList.map((ele) => (
@@ -175,11 +194,11 @@ const Signup = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="dateOfBirth">Date of Birth</label>
+            <label htmlFor="dob">Date of Birth</label>
             <input
               type="date"
-              id="dateOfBirth"
-              name="dateOfBirth"
+              id="dob"
+              name="dob"
               value={formData.dob}
               onChange={handleChange}
               className="form-control"
@@ -196,20 +215,6 @@ const Signup = () => {
               onChange={handleChange}
               className="form-control"
               placeholder="Enter your Contact Number"
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="address">Address</label>
-            <input
-              type="text"
-              id="address"
-              name="address"
-              value={formData.address}
-              onChange={handleChange}
-              className="form-control"
-              placeholder="Enter your address"
               required
             />
           </div>

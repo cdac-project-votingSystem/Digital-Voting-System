@@ -3,7 +3,7 @@ import { createUrl } from "../utils"
 
 export async function getAllConstituency(){
     try{
-        const url = createUrl("formHelper/constituency") 
+        const url = createUrl("constituency/viewAll") 
          const response = await axios.get (url);
          return response;
     }
