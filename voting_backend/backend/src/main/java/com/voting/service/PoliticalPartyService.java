@@ -1,5 +1,6 @@
 package com.voting.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.voting.dtos.PoliticalPartyRequestRegister;
@@ -10,9 +11,9 @@ public interface PoliticalPartyService {
 
 	List<PoliticalPartyResponseDTO> getAlLToValidate();
 
-	List<PoliticalPartyResponseDTO> getAllValidParty();
+	List<PoliticalPartyResponseDTO> getAllValidParty() throws IOException;
 
-	Long registerParty(PoliticalPartyRequestRegister entity);
+	Long registerParty(PoliticalPartyRequestRegister entity) throws IOException;
 
 	boolean updatePoliticalParty(Long partyId, PoliticalPartyRequestUpdate entity);
 }

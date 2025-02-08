@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -24,7 +25,7 @@ import com.voting.dtos.PoliticalPartyResponseDTO;
 import com.voting.service.ImageHandlingService;
 import com.voting.service.PoliticalPartyService;
 
-@CrossOrigin(origins = "http://localhost:3000")
+//@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/politicalParty")
 public class PoliticalPartyController {
@@ -34,20 +35,26 @@ public class PoliticalPartyController {
 	@Autowired
 	ImageHandlingService imageHandlingService;
 	
-	@PostMapping("/register")
-	public ResponseEntity<?> postMethodName(@RequestPart PoliticalPartyRequestRegister entity , @RequestPart MultipartFile image) {
-				Long partyId  = politicalPartyService.registerParty(entity);
-				try {
-					imageHandlingService.uploadPoliticalPartyImage(partyId, image);
-				} catch (IOException e) {
-					System.out.println("from political party"+e.getMessage());
-					return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( new ApiResponse("Not able to Add image in the database"));
-				}
-		return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse("added political party in the database"));
+	@PostMapping(value = "/register", consumes = "multipart/form-data")
+	public ResponseEntity<?> registerPoliticalParty(@ModelAttribute PoliticalPartyRequestRegister entity) throws IOException {
+
+		System.out.println("Received Party Name: " + entity.getPartyName());
+	    System.out.println("Received Abbreviation: " + entity.getAbbreviation());
+	    System.out.println("Received Description: " + entity.getPartyDescription());
+	    System.out.println("Received Image: " + (entity.getPartyLogo() != null ? entity.getPartyLogo().getOriginalFilename() : "No image"));
+		
+	    Long partyId = politicalPartyService.registerParty(entity);
+
+	    if (entity.getPartyLogo() != null && !entity.getPartyLogo().isEmpty()) {
+	        imageHandlingService.uploadPoliticalPartyImage(partyId, entity.getPartyLogo());  
+	    }
+
+	    return ResponseEntity.status(HttpStatus.CREATED)
+	            .body(new ApiResponse("Political party registered successfully"));
 	}
-	
+
 	@GetMapping("/tovalidate")
-	public ResponseEntity<List<PoliticalPartyResponseDTO>> listAllPoliticalPartyToValidate() {
+	public ResponseEntity<List<PoliticalPartyResponseDTO>> listAllPoliticalPartyToValidate( )  throws IOException {
 	    List<PoliticalPartyResponseDTO> parties = politicalPartyService.getAlLToValidate();
 	    if (parties.isEmpty()) {
 	        return ResponseEntity.noContent().build();  // Returns HTTP 204 if empty
@@ -56,13 +63,14 @@ public class PoliticalPartyController {
 	}
 
 	@GetMapping("/viewAllValid")
-	public ResponseEntity<List<PoliticalPartyResponseDTO>>  listAllPoliticalParty() {
+	public ResponseEntity<List<PoliticalPartyResponseDTO>>  listAllPoliticalParty()  throws IOException {
 		List<PoliticalPartyResponseDTO> parties = politicalPartyService.getAllValidParty();
 	    if (parties.isEmpty()) {
 	        return ResponseEntity.noContent().build();  // Returns HTTP 204 if empty
 	    }
 	    return ResponseEntity.ok(parties);  // Returns HTTP 200 with the list
 	}
+	
 	
 	// show all candidate for a  pp for a consti 
 //	@GetMapping("/{pid}/{constid}")

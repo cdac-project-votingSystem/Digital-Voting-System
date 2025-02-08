@@ -34,8 +34,12 @@ public class PoliticalParty {
     private int isValid = 0;
     
     @Lob
-    @Column(name = "party_logo")
+    @Column(name = "party_logo",columnDefinition = "LONGBLOB")
+ 
     private byte[] partyLogo;
+    
+    @Column(length =  1024)
+    private String logoPath;
   
 }
 

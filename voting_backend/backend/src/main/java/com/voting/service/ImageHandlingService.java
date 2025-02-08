@@ -11,7 +11,7 @@ import com.voting.dtos.ApiResponse;
 public interface ImageHandlingService {
 	ApiResponse uploadCandidateImage(Long candidateId, MultipartFile image) throws IOException;
 	ApiResponse uploadPoliticalPartyImage(Long partyId, MultipartFile image) throws IOException;
-	 public byte[] retrieveImage( Object entity, String type) throws IOException;
+	String retrieveImage( Object entity, String type) throws IOException;
 	
 	
 }

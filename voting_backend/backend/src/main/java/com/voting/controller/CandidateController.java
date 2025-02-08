@@ -1,5 +1,7 @@
 package com.voting.controller;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +21,8 @@ public class CandidateController {
 	 private CandidateService candidateService;
 
     // ✅ Add Candidate to Party (Using Aadhar Number)
-    @PostMapping("/add")
-    public ResponseEntity<ApiResponse> addCandidateToParty(@Valid @RequestBody CandidateRequestDTO candidateRequestDTO) {
+    @PostMapping( value =  "/add",consumes = "multipart/form-data")
+    public ResponseEntity<ApiResponse> addCandidateToParty(@Valid @ModelAttribute CandidateRequestDTO candidateRequestDTO) throws IOException {
         ApiResponse response = candidateService.addCandidateToParty(candidateRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }

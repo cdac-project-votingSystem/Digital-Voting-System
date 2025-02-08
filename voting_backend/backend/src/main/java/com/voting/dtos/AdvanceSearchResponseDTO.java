@@ -30,12 +30,12 @@ public class AdvanceSearchResponseDTO {
 	
 	private String partyName;
     private String abbreviation;
-    private byte[] partyLogo;
+    private String partyLogo;
     
 //    @Column(name = "constituency_name", nullable = false, unique = true, length = 255) //oroginally name in pojo
     private String constituencyName;
     
     private String firstName;
 	private String lastName;
-	private byte[] candidateImage;
+	private String candidateImage;
 }

@@ -24,6 +24,8 @@ import UserInfo from "./components/Dashboard/UserDashboard/UserInfo.jsx";
 import VotingPage from "./components/Dashboard/UserDashboard/Voting.jsx";
 import Voting from "./components/Dashboard/UserDashboard/Voting.jsx";
 import UpdateProfile from "./components/UpdateProfile.jsx";
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const App = () => {
   return (
@@ -97,6 +99,8 @@ const App = () => {
           <Footer />
         </div>
       </div>
+      <ToastContainer />
+    
     </div>
   );
 };

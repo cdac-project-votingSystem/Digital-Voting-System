@@ -1,11 +1,17 @@
 package com.voting.service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.voting.dao.PoliticalPartyDao;
@@ -26,33 +32,73 @@ public class PoliticalPartyServiceImple implements PoliticalPartyService {
 	@Autowired
 	ModelMapper modelMapper;
 	
+	@Autowired
+	ImageHandlingService imageHandlingService;
+	
 	@Override
 	public List<PoliticalPartyResponseDTO> getAlLToValidate() {
-		 List<PoliticalParty> listP= politicalPartyDao.findByIsValid(0);
-		 List<PoliticalPartyResponseDTO> res = new ArrayList<>();
-		 for(PoliticalParty p : listP) {
-			PoliticalPartyResponseDTO temp =  modelMapper.map(p, PoliticalPartyResponseDTO.class);
-			res.add(temp);
-		 }
-		 return res;
-	}
+		  return politicalPartyDao.findByIsValid(0)
+		            .stream()
+		            .map(p -> {
+		                PoliticalPartyResponseDTO temp = modelMapper.map(p, PoliticalPartyResponseDTO.class);
+
+		                // Use service to retrieve image in Base64
+		                if (p.getLogoPath() != null && !p.getLogoPath().isEmpty()) {
+		                    try {
+		                        String base64Image = imageHandlingService.retrieveImage(p, "party");
+		                        temp.setPartyLogo("data:image/png;base64," + base64Image);
+		                    } catch (IOException e) {
+		                        System.err.println("Error retrieving party image: " + e.getMessage());
+		                        temp.setPartyLogo(null);
+		                    }
+		                }
+		                
+		                return temp;
+		            })
+		            .collect(Collectors.toList());
+		}
+
 
 	@Override
 	public List<PoliticalPartyResponseDTO> getAllValidParty() {
-		 List<PoliticalParty> listP= politicalPartyDao.findByIsValid(1);
-		 List<PoliticalPartyResponseDTO> res = new ArrayList<>();
-		 for(PoliticalParty p : listP) {
-			PoliticalPartyResponseDTO temp =  modelMapper.map(p, PoliticalPartyResponseDTO.class);
-			res.add(temp);
-		 }
-		 return res;
+	    return politicalPartyDao.findByIsValid(1)
+	            .stream()
+	            .map(p -> {
+	                PoliticalPartyResponseDTO temp = modelMapper.map(p, PoliticalPartyResponseDTO.class);
+
+	                // Use service to retrieve image in Base64
+	                if (p.getLogoPath() != null && !p.getLogoPath().isEmpty()) {
+	                    try {
+	                        String base64Image = imageHandlingService.retrieveImage(p, "party");
+	                        temp.setPartyLogo("data:image/png;base64," + base64Image);
+	                    } catch (IOException e) {
+	                        System.err.println("Error retrieving party image: " + e.getMessage());
+	                        temp.setPartyLogo(null);
+	                    }
+	                }
+	                
+	                return temp;
+	            })
+	            .collect(Collectors.toList());
 	}
 
+
+
 	@Override
-	public Long registerParty(PoliticalPartyRequestRegister entity ) {
-		 PoliticalParty party= modelMapper.map(entity, PoliticalParty.class);
-		 politicalPartyDao.save(party);
-		 return party.getPartyId();
+	public Long registerParty(PoliticalPartyRequestRegister entity) throws IOException {
+	    PoliticalParty party = new PoliticalParty();
+	    party.setPartyName(entity.getPartyName());
+	    party.setAbbreviation(entity.getAbbreviation());
+	    party.setPartyDescription(entity.getPartyDescription());
+	    
+	    politicalPartyDao.save(party);
+
+	    if (entity.getPartyLogo() != null && !entity.getPartyLogo().isEmpty()) {
+	        imageHandlingService.uploadPoliticalPartyImage(party.getPartyId(), entity.getPartyLogo());
+	    }
+
+
+	    return party.getPartyId();
 	}
 
 	@Override

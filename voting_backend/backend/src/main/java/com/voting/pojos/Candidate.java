@@ -34,6 +34,10 @@ public class Candidate {
 	private int votes= 0;
 	
 	@Lob
+	@Column(columnDefinition = "LONGBLOB")
 	private byte[] candidateImage;
 
+	@Column(length = 1024)
+	private String imagePath; 
+	
 }

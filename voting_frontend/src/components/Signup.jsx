@@ -33,7 +33,7 @@ const Signup = () => {
 
   const onLoadForm = async () => {
     const result = await getAllConstituency();
-    result.map((res) => constituencyList.push(res));
+    result.data.map((res) => constituencyList.push(res));
     console.log(result);
     if (result["status"] == "error") toast.error(result.error);
   };
@@ -42,7 +42,7 @@ const Signup = () => {
     onLoadForm();
   }, []);
 
-  const validateForem =() =>{
+  const validateForm =() =>{
     if(confirmPassword == formData.password)
         return true;
     else 
@@ -157,6 +157,8 @@ const Signup = () => {
           </div>
 
           <div className="form-group">
+          <label htmlFor="Constituency">Contituency</label>
+
             <select
               id="Constituency"
               name="constituencyId"

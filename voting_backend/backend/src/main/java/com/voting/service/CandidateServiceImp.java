@@ -1,5 +1,6 @@
 package com.voting.service;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
@@ -38,9 +39,12 @@ public class CandidateServiceImp implements CandidateService{
 
     @Autowired
     private ModelMapper modelMapper;
+    
+    @Autowired
+    private ImageHandlingService imageHandlingService;
 
 	@Override
-	public ApiResponse addCandidateToParty(CandidateRequestDTO candidateRequest) {
+	public ApiResponse addCandidateToParty(CandidateRequestDTO candidateRequest) throws IOException {
 			
 //		System.out.println(candidateRequest);
 		
@@ -60,6 +64,9 @@ public class CandidateServiceImp implements CandidateService{
 	        candidate.setPoliticalParty(politicalParty);
 	        candidate.setConstituency(constituency);
 	        candidate.setIsValid(0); // Mark as valid candidate
+	        candidateDao.save(candidate);
+	        
+	        ApiResponse res = imageHandlingService.uploadCandidateImage(candidate.getCandidateId(),candidateRequest.getImage());
 
 	        // Save candidate to DB
 	        candidateDao.save(candidate);

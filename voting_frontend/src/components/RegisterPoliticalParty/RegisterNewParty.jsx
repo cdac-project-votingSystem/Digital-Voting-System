@@ -1,127 +1,126 @@
-import React, { useState } from "react";
-import Header from "../Header";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useState } from "react";
+// import "bootstrap/dist/css/bootstrap.min.css";
 
-const RegisterNewParty = () => {
-  const [formData, setFormData] = useState({
-    logo: null, 
+const RegisterPoliticalParty = () => {
+  const [form, setForm] = useState({
     partyName: "",
-    slogan: "",
     abbreviation: "",
-    about: "",
+    partyDescription: "",
+    partyLogo: null,
   });
 
   const handleChange = (e) => {
-    const { name, value, files } = e.target;
-
-    if (name === "logo") {
-      setFormData({
-        ...formData,
-        [name]: files[0], 
-      });
+    if (e.target.name === "partyLogo") {
+      setForm({ ...form, partyLogo: e.target.files[0] });
     } else {
-      setFormData({
-        ...formData,
-        [name]: value,
-      });
+      setForm({ ...form, [e.target.name]: e.target.value });
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const data = new FormData();
-    data.append("logo", formData.logo);
-    data.append("partyName", formData.partyName);
-    data.append("slogan", formData.slogan);
-    data.append("abbreviation", formData.abbreviation);
-    data.append("about", formData.about);
 
-    console.log("Form Data Submitted:", formData);
+    const formData = new FormData();
+    formData.append("partyName", form.partyName);
+    formData.append("abbreviation", form.abbreviation);
+    formData.append("partyDescription", form.partyDescription);
+    formData.append("partyLogo", form.partyLogo);
+
+    try {
+      const response = await axios.post("http://localhost:8080/politicalParty/register", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      console.log(response);
+      if(response.status == 201)
+        toast.success("Political party registered successfully!");
+      else
+        toast.error("try again")
+      setForm({ partyName: "", abbreviation: "", partyDescription: "", partyLogo: null });
+    } catch (error) {
+      toast.error("Failed to register party. Please check the backend.");
+    }
   };
 
   return (
-      <div>
-        <br /><br /><br />
+    <div className="container mt-5">
+      <div className="card shadow-lg p-4">
+        <br /><br /><br /><br />
+        <h2 className="text-center mb-4">Register Political Party</h2>
+        <form onSubmit={handleSubmit} encType="multipart/form-data">
+          {/* Party Name */}
+          <div className="mb-3">
+            <label className="form-label">Party Name</label>
+            <input
+              type="text"
+              className="form-control"
+              name="partyName"
+              placeholder="Enter Party Name"
+              value={form.partyName}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
+          {/* Abbreviation */}
+          <div className="mb-3">
+            <label className="form-label">Abbreviation</label>
+            <input
+              type="text"
+              className="form-control"
+              name="abbreviation"
+              placeholder="Enter Abbreviation"
+              value={form.abbreviation}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
+          {/* Party Description */}
+          <div className="mb-3">
+            <label className="form-label">Party Description</label>
+            <textarea
+              className="form-control"
+              name="partyDescription"
+              rows="3"
+              placeholder="Enter Party Description"
+              value={form.partyDescription}
+              onChange={handleChange}
+              required
+            ></textarea>
+          </div>
 
-    <div className="container mt-5 card p-4" style={{width:"700px"}}>
-      <Header />
-      <br /><br />
-      <h2 className="text-center text-primary">Register New Party</h2>
-      <form onSubmit={handleSubmit} className="">
-        <div className="mb-3">
-          <label htmlFor="logo" className="form-label">
-            Logo:
-          </label>
-          <input
-            type="file"
-            id="logo"
-            name="logo"
-            accept="image/*"
-            onChange={handleChange}
-            className="form-control"
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="partyName" className="form-label">
-            Party Name:
-          </label>
-          <input
-            type="text"
-            id="partyName"
-            name="partyName"
-            value={formData.partyName}
-            onChange={handleChange}
-            className="form-control"
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="slogan" className="form-label">
-            Slogan:
-          </label>
-          <input
-            type="text"
-            id="slogan"
-            name="slogan"
-            value={formData.slogan}
-            onChange={handleChange}
-            className="form-control"
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="abbreviation" className="form-label">
-            Abbreviation:
-          </label>
-          <input
-            type="text"
-            id="abbreviation"
-            name="abbreviation"
-            value={formData.abbreviation}
-            onChange={handleChange}
-            className="form-control"
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="about" className="form-label">
-            About:
-          </label>
-          <textarea
-            id="about"
-            name="about"
-            value={formData.about}
-            onChange={handleChange}
-            className="form-control"
-            rows="4"
-          />
-        </div>
-        <button type="submit" className="btn btn-primary w-100">
-          Register Party
-        </button>
-      </form>
-    </div>
+          {/* Image Upload */}
+          <div className="mb-3">
+            <label className="form-label">Party Logo</label>
+            <input
+              type="file"
+              className="form-control"
+              name="partyLogo"
+              accept="image/*"
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          {/* Submit Button */}
+          <div className="text-center">
+            <button type="submit" className="btn btn-primary w-100">
+              Register Party
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
 
-export default RegisterNewParty;
+export default RegisterPoliticalParty;
+
+
+
+
+
