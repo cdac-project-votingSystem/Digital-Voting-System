@@ -48,7 +48,7 @@ const RegisterPoliticalParty = () => {
   return (
     <div className="container mt-5">
       <div className="card shadow-lg p-4">
-        <br /><br /><br /><br />
+        <br /><br />
         <h2 className="text-center mb-4">Register Political Party</h2>
         <form onSubmit={handleSubmit} encType="multipart/form-data">
           {/* Party Name */}
@@ -107,8 +107,8 @@ const RegisterPoliticalParty = () => {
           </div>
 
           {/* Submit Button */}
-          <div className="text-center">
-            <button type="submit" className="btn btn-primary w-100">
+          <div className="text-center ">
+            <button type="submit" className="btn btn-primary w-25">
               Register Party
             </button>
           </div>

@@ -42,7 +42,7 @@ const Signup = () => {
       if (result.status === "error") {
         toast.error(result.error);
       } else {
-        setConstituencyList(result.data); // ✅ Updates state
+        setConstituencyList(result.data); 
       }
     } catch (error) {
       console.error("Error fetching constituencies:", error);

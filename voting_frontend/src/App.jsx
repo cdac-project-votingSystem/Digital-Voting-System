@@ -26,6 +26,7 @@ import Voting from "./components/Dashboard/UserDashboard/Voting.jsx";
 import UpdateProfile from "./components/UpdateProfile.jsx";
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import CandidateSignUp from "./components/Candidate/CandidateSignUp.jsx";
 
 const App = () => {
   return (
@@ -90,6 +91,7 @@ const App = () => {
 
             <Route path="/voting" element={<Voting />} />
           <Route path="/update-profile" element={<UpdateProfile/>}/>
+          <Route path="/candidate-register" element={<CandidateSignUp/>}/>
           </Routes>
 
         </div>
