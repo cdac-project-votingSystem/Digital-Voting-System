@@ -11,21 +11,18 @@ import lombok.Setter;
 @Entity
 @Table(name = "constituencies")
 @NoArgsConstructor
-public class Constituency {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "constituency_name", nullable = false, unique = true, length = 255)
-    private String name;
-
-    @Column
-    private int totalVoters=0;  
-
-    @Column(name = "votes_casted")
-    private int votesCast = 0;  
-
-
-
-}
+	public class Constituency {
+	
+	    @Id
+	    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	    private Long id;
+	
+	    @Column(name = "constituency_name", nullable = false, unique = true, length = 255)
+	    private String name;
+	
+	    @Column
+	    private int totalVoters=0;  
+	
+	    @Column(name = "votes_casted")
+	    private int votesCast = 0;  
+	}

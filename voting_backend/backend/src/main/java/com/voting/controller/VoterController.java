@@ -26,12 +26,6 @@ public class VoterController {
 	@Autowired
 	VoterService voterService;
 	
-	@PostMapping("/signup")
-	public ResponseEntity<ApiResponse> signup(@RequestBody VoterSignupDTO voterSignupDTO) {
-        ApiResponse apiResponse = voterService.signup(voterSignupDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
-    }
-	
 	@GetMapping("/{voterId}")
 	public ResponseEntity<VoterResponseDTO> getVoterById(@PathVariable Long voterId) {
 	    VoterResponseDTO voter = voterService.getVoterById(voterId);
@@ -65,6 +59,9 @@ public class VoterController {
 	    }
 	    return ResponseEntity.ok(new ApiResponse("Password reset successfully"));
 	}
+	
+	
+	// write an api for hasVoted which returns wheater voter has voted an implment 
 	
 	
 }

@@ -5,6 +5,10 @@ import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -26,114 +30,99 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class VoterServiceImple implements VoterService {
 
-	@Autowired
-	VoterDao voterDao;
-	@Autowired
-	ConstituencyDao constituencyDao;
-	@Autowired
-	ModelMapper modelMapper;
-	
-//	@Override
-//	public Boolean signup(VoterSignupDTO entity) {
-//	    Voter voter = modelMapper.map(entity, Voter.class);
-//
-//	    Constituency area = constituencyDao.findById((long)entity.getConstituencyId())
-//	                                       .orElseThrow(() -> new RuntimeException("Constituency not found"));
-//
-//	    voter.setConstituency(area);
-//	    voterDao.save(voter);
-//	    
-//	    return true;
-//	}
+    @Autowired
+    private VoterDao voterDao;
 
-	@Override
-	public VoterResponseDTO getVoterById(Long voterId) {
-		Optional<Voter> optionalVoter = voterDao.findById(voterId);
-		
-		if (optionalVoter.isEmpty()) {
-            return null; // Or you can throw a custom exception here
+    @Autowired
+    private ConstituencyDao constituencyDao;
+
+    @Autowired
+    private ModelMapper modelMapper;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder; // Ensure password encoding
+
+
+
+    @Override
+    public VoterResponseDTO getVoterById(Long voterId) {
+        Optional<Voter> optionalVoter = voterDao.findById(voterId);
+
+        if (optionalVoter.isEmpty()) {
+            throw new RuntimeException("Voter not found");
         }
-		
-		Voter voter = optionalVoter.get();
+
+        Voter voter = optionalVoter.get();
         VoterResponseDTO voterResponseDTO = modelMapper.map(voter, VoterResponseDTO.class);
         voterResponseDTO.setConstituencyName(voter.getConstituency().getName());
-        
+
         return voterResponseDTO;
+    }
 
-	}
+    @Override
+    public boolean resetPassword(String email, String newPassword) {
+        Optional<Voter> voterOptional = voterDao.findByEmail(email);
 
-//	@Override
-//	public boolean authenticateVoter(String email, String password) {
-//		Optional<Voter> voter = voterDao.findByEmail(email);
-//		if (voter.isPresent()) {
-//            // Check if the password matches
-//            return voter.get().getPassword().equals(password);
-//        }
-//		return false;
-//	}
-	
-	
-
-	@Override
-	public boolean resetPassword(String email, String newPassword) {
-		Optional<Voter> voterOptional = voterDao.findByEmail(email);
-        
         if (voterOptional.isPresent()) {
             Voter voter = voterOptional.get();
-            
-            // Encrypt the new password before storing
-            voter.setPassword(newPassword);
-            
-            // Save the updated voter
+
+            // ✅ Encrypt the new password before storing
+            voter.setPassword(passwordEncoder.encode(newPassword));
+
             voterDao.save(voter);
             return true;
         }
-        
-        return false; // Voter not found
-	}
 
-	@Override
-	public boolean updateVoter(Long voterId, VoterRequestDTO voterRequestDTO) {
-		Optional<Voter> voterOptional = voterDao.findById(voterId);
-		
-		if(voterOptional.isPresent()) {
-			Voter voter = voterOptional.get();
-			
-			modelMapper.map(voterRequestDTO, voter);
-			
-			Optional<Constituency> constituencyOptional = constituencyDao.findById((long) voterRequestDTO.getConstituencyId());
-			if (constituencyOptional.isPresent()) {
+        return false; // Voter not found
+    }
+
+    @Override
+    public boolean updateVoter(Long voterId, VoterRequestDTO voterRequestDTO) {
+        Optional<Voter> voterOptional = voterDao.findById(voterId);
+
+        if (voterOptional.isPresent()) {
+            Voter voter = voterOptional.get();
+
+            modelMapper.map(voterRequestDTO, voter);
+
+            Optional<Constituency> constituencyOptional = constituencyDao.findById((long) voterRequestDTO.getConstituencyId());
+            if (constituencyOptional.isPresent()) {
                 voter.setConstituency(constituencyOptional.get());
             } else {
                 return false; // Constituency not found
             }
-			
-			voterDao.save(voter);
+
+            voterDao.save(voter);
             return true;
-		}
-		return false;
-	}
+        }
+        return false;
+    }
 
-	@Override
-	public ApiResponse login(String email, String password) {
-		 Optional<Voter> voterOptional = voterDao.findByEmail(email);
+    @Override
+    public ApiResponse login(String email, String password) {
+        Optional<Voter> voterOptional = voterDao.findByEmail(email);
 
-	        if (voterOptional.isEmpty()) {
-	            return new ApiResponse("Voter not found!");
-	        }
+        if (voterOptional.isEmpty()) {
+            return new ApiResponse("Voter not found!");
+        }
 
-	        Voter voter = voterOptional.get();
-	        
-	        // Compare passwords (Consider hashing for security)
-	        if (voter.getPassword().equals(password)) {
-	            return new ApiResponse("Login Successful!");
-	        } else {
-	            return new ApiResponse("Invalid credentials!");
-	        }
-		
-	}
+        Voter voter = voterOptional.get();
 
-	public ApiResponse signup(VoterSignupDTO entity) {
+        // ✅ Compare hashed passwords
+        if (passwordEncoder.matches(password, voter.getPassword())) {
+            return new ApiResponse("Login Successful!");
+        } else {
+            return new ApiResponse("Invalid credentials!");
+        }
+    }
+
+    @Override
+    public ApiResponse signup(VoterSignupDTO entity) {
+        // ✅ Check if voter already exists
+        if (voterDao.findByEmail(entity.getEmail()).isPresent()) {
+            return new ApiResponse("Email already registered!");
+        }
+
         // Map DTO to Entity
         Voter voter = modelMapper.map(entity, Voter.class);
 
@@ -144,10 +133,13 @@ public class VoterServiceImple implements VoterService {
         // Assign Constituency to Voter
         voter.setConstituency(constituency);
 
+        // ✅ Encrypt password before saving
+        voter.setPassword(passwordEncoder.encode(entity.getPassword()));
+
         voterDao.save(voter);
 
         // Return success message
         return new ApiResponse("Voter registered successfully!");
     }
-	
 }
+

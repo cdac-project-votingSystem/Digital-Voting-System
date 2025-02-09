@@ -12,9 +12,14 @@ import lombok.Setter;
 public class ApiResponse {
 	private LocalDateTime timeStamp;
 	private String message;
+	private String token;
 	public ApiResponse(String message) {
-		super();
 		this.message = message;
 		this.timeStamp=LocalDateTime.now();
 	}
+	public ApiResponse(String message, String token) {
+        this.message = message;
+        this.token = token;
+    }
+	
 }
