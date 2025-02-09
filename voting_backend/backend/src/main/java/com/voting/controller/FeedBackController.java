@@ -20,6 +20,7 @@ import com.voting.service.FeedbackService;
 @RestController
 @RequestMapping("/feedback")
 public class FeedBackController {
+<<<<<<< HEAD
 
 	@Autowired
 	FeedbackService feedbackService;
@@ -39,4 +40,7 @@ public class FeedBackController {
 	public ResponseEntity<?> markForDelete(@PathVariable Long id){
 		return ResponseEntity.ok(feedbackService.markFordelete(id));
 	}
+=======
+	
+>>>>>>> v3
 }

@@ -22,6 +22,10 @@ public interface VoterService {
 boolean resetPassword(String email, String newPassword);
 
 boolean updateVoter(Long voterId, VoterRequestDTO voterRequestDTO);
+
+boolean hasVoted(Long voterId);
+
+boolean castVote(Long voterId, Long candidateId);
   
 	
 }
