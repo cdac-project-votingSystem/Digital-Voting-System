@@ -10,9 +10,7 @@ import CandidateValidation from "./components/Dashboard/AdminDashboard/Candidate
 import RegisterNewParty from "./components/RegisterPoliticalParty/RegisterNewParty.jsx";
 import Login from "./components/Login.jsx";
 import Feedback from "./components/Feedback/Feedback.jsx";
-// import Voting from "./components/Voting/Voting.jsx";
 import ForgotPassword from "./components/ForgotPassword.jsx";
-import NavbarDashboard from "./components/Dashboard/AdminDashboard/AdminNavbarDashboard.jsx";
 import AdminDashBoardHome from "./components/Dashboard/AdminDashboard/AdminDashBoardHome.jsx";
 import PoliticalPartyVerfication from "./components/Dashboard/AdminDashboard/PoliticalPartyVerfication.jsx";
 import AddConsitituency from "./components/Dashboard/AdminDashboard/AddConsitituency.jsx";
@@ -21,12 +19,13 @@ import ScheduleElection from "./components/Dashboard/AdminDashboard/ScheduleElec
 import UserDashboard from "./components/Dashboard/UserDashboard/UserDashboard.jsx";
 import UpcomingElections from "./components/Dashboard/UserDashboard/UpcomingElections.jsx";
 import UserInfo from "./components/Dashboard/UserDashboard/UserInfo.jsx";
-import VotingPage from "./components/Dashboard/UserDashboard/Voting.jsx";
 import Voting from "./components/Dashboard/UserDashboard/Voting.jsx";
 import UpdateProfile from "./components/UpdateProfile.jsx";
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import CandidateSignUp from "./components/Candidate/CandidateSignUp.jsx";
+import AdvanceSearch from "./components/AdvanceSearch.jsx";
+
 
 const App = () => {
   return (
@@ -92,6 +91,7 @@ const App = () => {
             <Route path="/voting" element={<Voting />} />
           <Route path="/update-profile" element={<UpdateProfile/>}/>
           <Route path="/candidate-register" element={<CandidateSignUp/>}/>
+          <Route path="/advance-search" element={<AdvanceSearch/>}/>
           </Routes>
 
         </div>

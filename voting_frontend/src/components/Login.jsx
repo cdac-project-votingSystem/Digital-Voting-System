@@ -46,7 +46,7 @@ const Login = () => {
 
   return (
     <div className="login-page">
-      <Header />
+      {/* <Header /> */}
       <div className="login-container">
         <div className="login-header">
           <h1>Digital Voting System</h1>
