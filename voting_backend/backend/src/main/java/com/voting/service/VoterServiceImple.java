@@ -4,16 +4,9 @@ import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
 
-import com.voting.custom_exceptions.ResourceNotFoundException;
 import com.voting.dao.ConstituencyDao;
 import com.voting.dao.VoterDao;
 import com.voting.dtos.ApiResponse;
@@ -23,7 +16,6 @@ import com.voting.dtos.VoterSignupDTO;
 import com.voting.pojos.Constituency;
 import com.voting.pojos.Voter;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -132,16 +124,13 @@ public class VoterServiceImple implements VoterService {
 
         // Assign Constituency to Voter
         voter.setConstituency(constituency);
-<<<<<<< HEAD
         int prev = constituency.getTotalVoters();
         constituency.setTotalVoters(prev+1);
         constituencyDao.save(constituency);
-=======
 
         // ✅ Encrypt password before saving
         voter.setPassword(passwordEncoder.encode(entity.getPassword()));
 
->>>>>>> v3
         voterDao.save(voter);
 
         // Return success message

@@ -14,12 +14,7 @@ public interface PoliticalPartyService {
 
 	List<PoliticalPartyResponseDTO> getAllValidParty() throws IOException;
 
-<<<<<<< HEAD
 	Long registerParty(PoliticalPartyRequestRegister entity) throws IOException;
-=======
-	
-	Long registerParty(PoliticalPartyRequestRegister entity);
->>>>>>> v3
 
 	boolean updatePoliticalParty(Long partyId, PoliticalPartyRequestUpdate entity);
 
