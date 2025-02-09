@@ -31,19 +31,22 @@ public class SecurityConfiguration {
 		public SecurityFilterChain authorizeRequests(HttpSecurity http) throws Exception
 		{
 			//1. Disable CSRF filter
-			http.csrf(customizer -> customizer.disable())
+			http
+//			.cors(Customizer.withDefaults())
+			.csrf(customizer -> customizer.disable())
 			//2. configure URL based access
+			
 	        .authorizeHttpRequests
 	        (request -> 
 	        request.requestMatchers(
 	        		"/signup","/login",
-					"/v*/api-doc*/**","/swagger-ui/**").permitAll() 
+					"/v*/api-doc*/**","/swagger-ui/**","/advanceSearch/**","/politicalParty/**","/feedback/**","/constituency/**").permitAll() 
 	        //required explicitly for JS clients (eg React app - to permit pre flight requests)
 	        .requestMatchers(HttpMethod.OPTIONS).permitAll()
 	        	
 	       .requestMatchers("/voters/**")
 	       .hasRole("VOTER")
-	       .requestMatchers("/admin")
+	       .requestMatchers("/admin/**")
 	       .hasRole("ADMIN")        		
 	        .anyRequest().authenticated())  
 	  //      .httpBasic(Customizer.withDefaults()) - replacing it by custom JWT filter

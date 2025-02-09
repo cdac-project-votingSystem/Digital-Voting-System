@@ -1,7 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom"; // Import Link for navigation
+import { Link, useNavigate } from "react-router-dom"; // Import Link for navigation
 import Header from "./Header";
 import "./Login.css";
+import { userLogin } from "../API/Login";
+import { toast } from "react-toastify";
+import { jwtDecode } from "jwt-decode";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -17,9 +20,28 @@ const Login = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log("Login Form Data Submitted:", formData);
+    try{
+      const res= await userLogin(formData);
+      console.log(res);
+      
+      if (res?.data?.token) {
+        localStorage.setItem("token", res.data.token); 
+      }
+
+      const user = jwtDecode(res.data.token);
+        if(user.authorities == "ROLE_VOTER"){
+            navigate("/voter");
+        }else if(user.authorities  == "ROLE_ADMIN"){
+            navigate("/admin");
+        }
+    }
+    catch(ex){
+      toast.error("try again")
+    }
   };
 
   return (

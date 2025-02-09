@@ -14,7 +14,7 @@ import com.voting.dtos.AdvanceSearchResponseDTO;
 import com.voting.service.AdvanceSearchService;
 
 
-@CrossOrigin(origins = "http://localhost:3000")
+//@CrossOrigin("*")
 @RestController
 @RequestMapping("/advanceSearch")
 public class AdvanceSearchController {

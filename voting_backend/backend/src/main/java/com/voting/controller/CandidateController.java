@@ -15,6 +15,7 @@ import com.voting.service.CandidateService;
 
 import jakarta.validation.Valid;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/candidates")
 public class CandidateController {

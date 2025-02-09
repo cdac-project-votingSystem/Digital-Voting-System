@@ -15,6 +15,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 
 import com.voting.dtos.ApiResponse;
 import com.voting.dtos.FeedbackRequestDTO;
+import com.voting.dtos.LoginDTO;
 import com.voting.dtos.VoterSignupDTO;
 import com.voting.security.JwtUtils;
 import com.voting.service.FeebackService;
@@ -22,7 +23,7 @@ import com.voting.service.VoterService;
 
 import jakarta.validation.Valid;
 
-
+//@CrossOrigin("*")
 @RestController
 public class HomeController {	
 	@Autowired
@@ -44,7 +45,9 @@ public class HomeController {
     }
 	
 	@PostMapping("/login")
-	public ResponseEntity<?> login(@RequestParam String email, @RequestParam String password) {
+	public ResponseEntity<?> login(@RequestBody LoginDTO entity) {
+		String email = entity.getEmail();
+		String password = entity.getPassword();
 		UsernamePasswordAuthenticationToken 
 		authenticationToken = new UsernamePasswordAuthenticationToken(email, password);
 		

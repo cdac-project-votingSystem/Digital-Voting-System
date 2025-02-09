@@ -58,7 +58,7 @@ public class JwtUtils {
 				.claim("authorities", getAuthoritiesInString(userPrincipal.getAuthorities()))
 				// setting a custom claim , to add user id (remove it if not required in the project)
 				.claim("user_id",userPrincipal.getUserEntity().getId())
-		
+				.claim("user_name",userPrincipal.getUserEntity().getFirstName())
 				.signWith(key, SignatureAlgorithm.HS512) // Signs the constructed JWT using the specified
 															// algorithm with the specified key, producing a
 															// JWS(Json web signature=signed JWT)

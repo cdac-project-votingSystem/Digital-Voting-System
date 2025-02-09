@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.voting.dtos.PublishElectionResponseDTO;
 import com.voting.service.ElectionService;
 
-@CrossOrigin(origins = "http://localhost:3000")
+//@CrossOrigin("*")
 @RestController
 @RequestMapping("/election")
 public class ElectionController {

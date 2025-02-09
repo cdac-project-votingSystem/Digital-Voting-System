@@ -21,7 +21,7 @@ import com.voting.service.AdminService;
 
 import jakarta.validation.Valid;
 
-@CrossOrigin(origins = "http://localhost:3000")
+//@CrossOrigin("*")
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
