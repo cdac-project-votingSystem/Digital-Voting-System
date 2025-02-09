@@ -78,6 +78,16 @@ const Signup = () => {
       }
       else{
        toast.success(res.data.message) ;
+       setFormData({
+        firstName: "", //OK
+        lastName: "", //OK
+        email: "", // ok
+        password: "", //ok
+        dob: "", //ok
+        contactNumber: "", //ok
+        constituencyId: null,
+        adhaarNumber: "", //ok
+      });
        setTimeout(() => {
         navigate("/login"); 
       }, 4000);

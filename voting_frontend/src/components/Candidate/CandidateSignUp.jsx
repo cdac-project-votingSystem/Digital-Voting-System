@@ -41,7 +41,12 @@ const CandidateSignUp = () => {
             toast.success("Candidate registered successfully! Wait for Admin Validation ");
         else
         toast.error("try again")
-        setForm({ partyName: "", abbreviation: "", partyDescription: "", partyLogo: null });
+        setForm( {
+            adhaarNumber: "",
+            politicalPartyId: null,
+            constituencyId: null,
+            image: null,
+          })
     } catch (error) {
       toast.error("Failed to register candidate. Please check the backend.");
     }

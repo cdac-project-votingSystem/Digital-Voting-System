@@ -1,22 +1,53 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
-function ListCard({ data }) {
-    const { img, name, constituency, politicalParty } = data;
+import { candidateToInValidate, candidateToValidate} from '../../../API/Admin';
+import { toast } from 'react-toastify';
+
+
+
+
+
+function ListCard({ data,refreshPage }) {
+    const { partyName, name, constituencyName, partyAbb,image,id } = data;
+
+    console.log(image)
+    const validateCandidate = async()=>{
+        const res  = await candidateToValidate(id);
+        if(res.status== 200){
+            toast.success("validated");
+            refreshPage();
+        }
+        else{
+            toast.error("try again")
+        }
+    }  
+    
+    const inValidateCandidate = async()=>{
+        const res  = await candidateToInValidate(id);
+        if(res.status== 200){
+            toast.warning("IN validated");
+            refreshPage();
+        }
+        else{
+            toast.error("try again")
+        }
+    }  
+
+
     return (
         <div>
             <div className="card mb-2 ms-2" style={{ width: '18rem' }}>
-                <img src={img} className="card-img-top" alt="..."/>
+                <img src={  `data:image/png;base64,${data.image}`} className="card-img-top" alt="..."/>
                 <div className="card-body">
                     <h5 className="card-title">{name}</h5>
-                    <p className="card-text">{politicalParty}</p>
-                    <p className="card-text">{constituency}</p>
+                    <p className="card-text">{partyName } | { partyAbb }</p>
+                    <p className="card-text">{constituencyName}</p>
                     <div className='row'>
                         <div className="col-6">
-                        <Link to="#" className="btn btn-success" style={{width:"100%"}}>Accept</Link>
+                        <button onClick={validateCandidate} className="btn btn-success" style={{width:"100%"}}>Accept</button>
                         </div>
                         <div className="col-6">
-                    <Link to="#" className="btn btn-danger" style={{width:"100%"}}>Reject</Link>
+                    <button onClick = {inValidateCandidate}className="btn btn-danger" style={{width:"100%"}}>Reject</button>
                         </div>
                     </div>
 

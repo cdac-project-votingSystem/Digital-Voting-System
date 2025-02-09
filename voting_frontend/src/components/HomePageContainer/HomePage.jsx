@@ -14,14 +14,14 @@ const HomePage = () => {
       {/* <Header/> */}
       <br />
       <br />
-      <HomePageCarousel/>
+        <HomePageCarousel/>
         <HomePageAbout/>
         <NewCandidateRegister/>
         <br />
         <HomeText/>
         <br />
         <NewPartyRegisterBtn/>
-      <HomePageMyths/>
+        <HomePageMyths/>
       {/* <Footer/> */}
     </div>
   )

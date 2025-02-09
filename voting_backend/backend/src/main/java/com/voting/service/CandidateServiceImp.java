@@ -1,6 +1,8 @@
 package com.voting.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
@@ -13,6 +15,7 @@ import com.voting.dao.PoliticalPartyDao;
 import com.voting.dao.VoterDao;
 import com.voting.dtos.ApiResponse;
 import com.voting.dtos.CandidateRequestDTO;
+import com.voting.dtos.CandidateResDTO;
 import com.voting.pojos.Candidate;
 import com.voting.pojos.Constituency;
 import com.voting.pojos.PoliticalParty;
@@ -73,6 +76,31 @@ public class CandidateServiceImp implements CandidateService{
 
 	        return new ApiResponse("Candidate successfully added to party!");
 	}
+
+	@Override
+	public List<CandidateResDTO> viewAllToValidate()  {
+		List<Candidate> candidateList = candidateDao.findByIsValid(0);
+			List<CandidateResDTO>  res = new ArrayList<>();
+		for(Candidate c : candidateList) {
+			CandidateResDTO temp = new CandidateResDTO();
+			temp.setName( c.getVoter().getFirstName() + " "+c.getVoter().getLastName());
+			temp.setConstituencyName(c.getConstituency().getName());
+			temp.setPartyName(c.getPoliticalParty().getPartyName());
+			temp.setPartyAbb(c.getPoliticalParty().getAbbreviation());
+			temp.setId( c.getCandidateId());
+			try {
+				temp.setImage(imageHandlingService.retrieveImage(c, "candidate"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			res.add(temp);
+		}
+		return res;
+	}
+	
+	
+
   
 	
 }

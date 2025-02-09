@@ -15,5 +15,6 @@ public interface CandidateDao extends JpaRepository<Candidate, Long> {
 	List<Candidate> findByConstituencyAndPoliticalParty(Constituency constituency, PoliticalParty politicalParty);
 	List<Candidate> findByPoliticalParty_PartyId(Long id);
 	List<Candidate> findByPoliticalParty_PartyIdAndConstituency_Id(Long pid, Long cid);
+	List<Candidate> findByIsValid(int i);
 
 }

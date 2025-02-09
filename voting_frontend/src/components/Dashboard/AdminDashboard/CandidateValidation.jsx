@@ -1,45 +1,28 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ListCard from '../../Admin/Card/ListCard';
 import profilepic from '../../../assests/adminpage/profile.jpg'
+import { getAllCandidateToValidate } from '../../../API/Admin';
+import { toast } from 'react-toastify';
 
 function CandidateValidation() {
-    const arr = [
-      {
-          img:profilepic,
-          name: "arvind",
-          constituency: "Delhi",
-          politicalParty: "AAP"
-      },
-      {
-          img:profilepic,
-          name: "Mahesh",
-          constituency: "Raipur",
-          politicalParty: "BJP"
-      },
-      {
-          img:profilepic,
-          name: "Pankaj",
-          constituency: "Pune",
-          politicalParty: "ABC"
-      },    {
-          img:profilepic,
-          name: "arvind",
-          constituency: "Delhi",
-          politicalParty: "AAP"
-      },
-      {
-          img:profilepic,
-          name: "Mahesh",
-          constituency: "Raipur",
-          politicalParty: "BJP"
-      },
-      {
-          img:profilepic,
-          name: "Pankaj",
-          constituency: "Pune",
-          politicalParty: "ABC"
-      }
-    ]
+  
+  const [candiateListToValdiate,setCandidateListToValidate]=useState([]);
+  
+
+  const onLoad = async ()=>{
+    const res = await getAllCandidateToValidate();
+    if(res.status == 200){
+      setCandidateListToValidate(res.data);
+    }
+    else{
+      toast.error("try again")
+    }
+  }
+
+  useEffect(()=>{
+    onLoad();
+  },[])
+
   return (
     <div>
       <br /><br />
@@ -50,8 +33,12 @@ function CandidateValidation() {
     <div className='container d-flex flex-wrap'>
     
         {
-          arr.map(e => (<ListCard data={e}/>))
-      }
+          candiateListToValdiate.length == 0 ? <h2> No candidate to Validate </h2>:  
+          candiateListToValdiate.map(candiate => (<ListCard data={candiate} refreshPage = {onLoad}/>))
+      
+        }
+        
+        
        
     </div>
     </div>

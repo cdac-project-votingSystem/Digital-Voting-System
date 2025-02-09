@@ -46,8 +46,8 @@ public class AdminServiceImple implements AdminService {
 		try {
 		    Constituency constituency = modelMapper.map(dto, Constituency.class);
 		    Constituency persistConstituency = constituencyDao.save(constituency);
-		    return new ApiResponse("Added new constituency with name " + persistConstituency.getName() + 
-		                           " and id " + persistConstituency.getId());
+		    return new ApiResponse("Added new constituency with name " + persistConstituency.getName() 
+		                           );
 		} catch (Exception e) {
 		    return new ApiResponse("Error: Unable to add constituency. " + e.getMessage());
 		}
@@ -61,7 +61,7 @@ public class AdminServiceImple implements AdminService {
 								.orElseThrow(()-> new ResourceNotFoundException("invalid political party id for validation"));
 		p.setIsValid(1);
 		politicalPartyDao.save(p);
-		return new ApiResponse("validated political party with name- \"+p.getPartyName()+\" id-\"+p.getPartyId()");
+		return new ApiResponse("validated political party with name- "+p.getPartyName());
 		
 	}
 	@Override
@@ -70,21 +70,21 @@ public class AdminServiceImple implements AdminService {
 				.orElseThrow(()-> new ResourceNotFoundException("invalid political party id"));
 		p.setIsValid(-1);
 		politicalPartyDao.save(p);
-		return new ApiResponse("invalidated political party with name- "+p.getPartyName()+" id-"+p.getPartyId());
+		return new ApiResponse("invalidated political party with name- "+ p.getPartyName());
 	}
 
 	@Override
 	public ApiResponse validCandidate(Long id) {
 		Candidate c = candidateDao.findById(id).orElseThrow(()->new ResourceNotFoundException("invalid candidate id for validation"));
 		c.setIsValid(1);
-		return new ApiResponse("validated candidate with id " + c.getCandidateId());
+		return new ApiResponse("validated candidate with name" + c.getVoter().getFirstName() + " "+c.getVoter().getLastName());
 	}
 
 	@Override
 	public ApiResponse invalidCandidate(Long id) {
 		Candidate c = candidateDao.findById(id).orElseThrow(()->new ResourceNotFoundException("invalid candidate id for validation"));
 		c.setIsValid(-1);
-		return new ApiResponse("invalidated candidate with id " + c.getCandidateId());
+		return new ApiResponse("invalidated candidate with name " +  c.getVoter().getFirstName() + " "+c.getVoter().getLastName());
 		
 	}
 
@@ -98,6 +98,16 @@ public class AdminServiceImple implements AdminService {
         Election e = modelMapper.map(entity, Election.class);
         e.setConstituency(constituency);
 
+        List<Candidate> listCandidate = candidateDao.findAllByConstituency_Id(constituency.getId());
+        
+        for(Candidate c :listCandidate) {
+        	c.setVotes(0);
+        }
+        candidateDao.saveAll(listCandidate);
+        
+        constituency.setVotesCast(0);
+        constituencyDao.save(constituency);
+        
         electionDao.save(e);
 
         return new ApiResponse("Election set successfully for constituency: " + constituency.getName());

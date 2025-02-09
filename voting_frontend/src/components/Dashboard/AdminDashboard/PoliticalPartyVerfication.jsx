@@ -1,70 +1,48 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Verification from "./Verification";
-import logo from '../../../assests/partyLogo/ncp.jpg';
+import { toast } from "react-toastify";
+import { getValidParty } from "../../../API/Admin"; 
 
-const PoliticalPartyVerfication = (props) => {
+const PoliticalPartyVerification = () => {
+  const [partyListToValidate, setPartyListToValidate] = useState([]);
+ 
 
-  const politicalParties = [
-    {
-      name: "Bharatiya Janata Party",
-      image: "/images/bjp.png",
-      description: "A right-wing political party in India, founded in 1980, promoting nationalism and economic reforms."
-    },
-    {
-      name: "Indian National Congress",
-      image: "/images/congress.png",
-      description: "One of India's oldest political parties, established in 1885, historically associated with the independence movement."
-    },
-    {
-      name: "Aam Aadmi Party",
-      image: "/images/aap.png",
-      description: "Founded in 2012, it focuses on anti-corruption policies and good governance, emerging from the India Against Corruption movement."
-    },
-    {
-      name: "Communist Party of India (Marxist)",
-      image: "/images/cpi-m.png",
-      description: "A left-wing party advocating for socialism and workers' rights, influential in states like Kerala and West Bengal."
-    },
-    {
-      name: "Bahujan Samaj Party",
-      image: "/images/bsp.png",
-      description: "Founded in 1984, it primarily represents Dalits, Scheduled Castes, and other marginalized communities."
-    },
-    {
-      name: "Shiv Sena",
-      image: "/images/shiv-sena.png",
-      description: "A regional party in Maharashtra, known for its pro-Marathi and Hindutva ideology, founded by Bal Thackeray."
-    },
-    {
-      name: "Nationalist Congress Party",
-      image: "/images/ncp.png",
-      description: "A centrist party formed in 1999, split from the Indian National Congress, with influence in Maharashtra and other states."
-    },
-    {
-      name: "Samajwadi Party",
-      image: "/images/sp.png",
-      description: "A socialist party founded in 1992, primarily influential in Uttar Pradesh, advocating for social justice and minority rights."
+
+  useEffect(() => {
+    onLoad();
+  }, []);
+
+  const onLoad = async () => {
+    try {
+      const res = await getValidParty();
+      if (res.status === 200) {
+        setPartyListToValidate(res.data); // Correctly update the state
+      } else {
+        toast.error("Failed to load parties.");
+      }
+    } catch (error) {
+      toast.error("An error occurred while fetching parties.");
     }
-  ];
+  };
 
   return (
     <div>
-      <h3>Political Party Verification</h3>
+        
+       <h3>Political Party Verification</h3>
 
-      {politicalParties.map(party => (
-
-        <Verification image={logo}>
-
-        <h5 class="card-title">{party.name}</h5>
-              <p class="card-text">
-                {party.description}
-              </p>
-              
-        </Verification>
-      ))}
-
+      {partyListToValidate.length === 0 ? (
+        <h2>No party to validate</h2>
+      ) : (
+        partyListToValidate.map((party) => (
+          <Verification key={party.partyId} image={party.partyLogo} refreshData = {onLoad} id={party.partyId}
+          > 
+            <h5 className="card-title">{party.partyName} | {party.abbreviation}</h5>
+            <p className="card-text">{party.partyDescription}</p>
+          </Verification>
+        ))
+      )}
     </div>
   );
 };
 
-export default PoliticalPartyVerfication;
+export default PoliticalPartyVerification;

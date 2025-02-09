@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,26 +36,26 @@ public class AdminController {
 
 		// For Validate Political Party (Success)
 		@PatchMapping("/validatePoliticalParty/valid/{id}")
-		public ResponseEntity<?> validatePoliticalParty(@RequestParam Long id){
-		    return ResponseEntity.status(HttpStatus.CREATED).body(adminService.validPoliticalParty(id));
+		public ResponseEntity<?> validatePoliticalParty(@PathVariable Long id){
+		    return ResponseEntity.status(HttpStatus.OK).body(adminService.validPoliticalParty(id));
 		}
 
 		// For Invalidate Political Party (Success)
 		@PatchMapping("/validatePoliticalParty/invalid/{id}")
-		public ResponseEntity<?> InvalidatePoliticalParty(@RequestParam Long id){
-		    return ResponseEntity.status(HttpStatus.CREATED).body(adminService.invalidPoliticalParty(id));
+		public ResponseEntity<?> InvalidatePoliticalParty(@PathVariable Long id){
+		    return ResponseEntity.status(HttpStatus.OK).body(adminService.invalidPoliticalParty(id));
 		}
 
 		// For Validate Candidate (Success)
 		@PatchMapping("/validateCandidate/valid/{id}")
-		public ResponseEntity<?> validateCandidate(@RequestParam Long id){
-		    return ResponseEntity.status(HttpStatus.CREATED).body(adminService.validCandidate(id));
+		public ResponseEntity<?> validateCandidate(@PathVariable Long id){
+		    return ResponseEntity.status(HttpStatus.OK).body(adminService.validCandidate(id));
 		}
 
 		// For Invalidate Candidate (Success)
 		@PatchMapping("/invalidateCandidate/invalid/{id}")
-		public ResponseEntity<?> invalidateCandidate(@RequestParam Long id){
-		    return ResponseEntity.status(HttpStatus.CREATED).body(adminService.invalidCandidate(id));
+		public ResponseEntity<?> invalidateCandidate(@PathVariable Long id){
+		    return ResponseEntity.status(HttpStatus.OK).body(adminService.invalidCandidate(id));
 		}
 
 		// For Set Election (Success)
