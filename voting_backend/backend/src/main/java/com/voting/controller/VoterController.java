@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.voting.dtos.ApiResponse;
+import com.voting.dtos.HasVotedResponseDTO;
 import com.voting.dtos.VoterRequestDTO;
 import com.voting.dtos.VoterResponseDTO;
 import com.voting.dtos.VoterSignupDTO;
@@ -61,7 +63,26 @@ public class VoterController {
 	}
 	
 	
-	// write an api for hasVoted which returns wheater voter has voted an implment 
+	// write an api for hasVoted which returns wheater voter has voted and implment cast to voter
 	
+	@GetMapping("/{voterId}/hasVoted")
+    public ResponseEntity<HasVotedResponseDTO> hasVoted(@PathVariable Long voterId) {
+        boolean hasVoted = voterService.hasVoted(voterId);
+        return ResponseEntity.ok(new HasVotedResponseDTO(hasVoted));
+    }
+	
+	@PatchMapping("/{voterId}/vote")
+    public ResponseEntity<ApiResponse> castVote(
+            @PathVariable Long voterId,
+            @RequestParam Long candidateId) {
+
+        boolean success = voterService.castVote(voterId, candidateId);
+        if (!success) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new ApiResponse("Voting failed. Voter has already voted or invalid details."));
+        }
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new ApiResponse("Vote cast successfully"));
+    }
 	
 }
