@@ -7,11 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-<<<<<<< HEAD
-=======
+
 import com.voting.custom_exceptions.ResourceNotFoundException;
 import com.voting.dao.CandidateDao;
->>>>>>> v3
 import com.voting.dao.ConstituencyDao;
 import com.voting.dao.VoterDao;
 import com.voting.dtos.ApiResponse;

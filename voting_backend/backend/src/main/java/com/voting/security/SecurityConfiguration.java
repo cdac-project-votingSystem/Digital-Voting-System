@@ -32,7 +32,6 @@ public class SecurityConfiguration {
 		{
 			//1. Disable CSRF filter
 			http
-//			.cors(Customizer.withDefaults())
 			.csrf(customizer -> customizer.disable())
 			//2. configure URL based access
 			
@@ -42,8 +41,8 @@ public class SecurityConfiguration {
 	        		"/signup","/login",
 					"/v*/api-doc*/**","/swagger-ui/**","/advanceSearch/**","/politicalParty/**","/feedback/**","/constituency/**").permitAll() 
 	        //required explicitly for JS clients (eg React app - to permit pre flight requests)
-	        .requestMatchers(HttpMethod.OPTIONS).permitAll()
-	        	
+	        
+	        .requestMatchers(HttpMethod.OPTIONS).permitAll()	
 	       .requestMatchers("/voters/**")
 	       .hasRole("VOTER")
 	       .requestMatchers("/admin/**")
