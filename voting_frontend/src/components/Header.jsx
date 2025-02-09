@@ -86,7 +86,7 @@ const Header = () => {
               <li className="nav-item me-3">
                 <Link 
                   className={`nav-link ${isActive('/search') ? 'd-none' : ''}`} 
-                  to="/search"
+                  to="/advance-search"
                 >
                   Advance Search 🔎
                 </Link>

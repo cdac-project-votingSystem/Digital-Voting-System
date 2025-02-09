@@ -1,11 +1,13 @@
 import React from "react";
 import UserNavbar from "./UserNavbar";
+import { Outlet , useLocation} from 'react-router-dom';
 import UserInfo from "./UserInfo";
 import VotingPage from "./Voting";
 import UpcomingElections from "./UpcomingElections";
-import { Outlet } from "react-router-dom";
 
 const UserDashboard = () => {
+
+  const location = useLocation(); 
   return (
     <div className="container-fluid">
       <br />
@@ -26,9 +28,18 @@ const UserDashboard = () => {
           {/* <UserInfo />
           <VotingPage />
           <UpcomingElections /> */}
-          <Outlet />
+           {location.pathname === "/user-dashboard" ? <DefaultContent /> : <Outlet />}
         </div>
       </div>
+    </div>
+  );
+};
+
+const DefaultContent = () => {
+  return (
+    <div className="p-4 text-center">
+      <h2>Welcome to the user Dashboard</h2>
+      <p>Select an option from the sidebar to see user information , voting page and upcomming elections.</p>
     </div>
   );
 };
