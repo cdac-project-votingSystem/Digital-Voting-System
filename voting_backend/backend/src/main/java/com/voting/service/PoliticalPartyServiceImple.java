@@ -18,6 +18,7 @@ import com.voting.dao.PoliticalPartyDao;
 import com.voting.dtos.PoliticalPartyRequestRegister;
 import com.voting.dtos.PoliticalPartyRequestUpdate;
 import com.voting.dtos.PoliticalPartyResponseDTO;
+import com.voting.dtos.PoliticalPartySignUpResponseDTO;
 import com.voting.pojos.PoliticalParty;
 
 import jakarta.transaction.Transactional;
@@ -125,5 +126,13 @@ public class PoliticalPartyServiceImple implements PoliticalPartyService {
         }
         return false; 
 		}
+
+	@Override
+	public List<PoliticalPartySignUpResponseDTO> getAllParties() {
+		return politicalPartyDao.findAll()
+                .stream()
+                .map(party -> new PoliticalPartySignUpResponseDTO(party.getPartyId(), party.getPartyName(), party.getAbbreviation()))
+                .collect(Collectors.toList());
+	}
 	
 }

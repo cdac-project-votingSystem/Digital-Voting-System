@@ -22,6 +22,7 @@ import com.voting.dtos.ApiResponse;
 import com.voting.dtos.PoliticalPartyRequestRegister;
 import com.voting.dtos.PoliticalPartyRequestUpdate;
 import com.voting.dtos.PoliticalPartyResponseDTO;
+import com.voting.dtos.PoliticalPartySignUpResponseDTO;
 import com.voting.service.ImageHandlingService;
 import com.voting.service.PoliticalPartyService;
 
@@ -97,6 +98,9 @@ public class PoliticalPartyController {
 	}
 	
 	
-	
+	@GetMapping("viewAll")
+	 public List<PoliticalPartySignUpResponseDTO> getAllParties() {
+        return politicalPartyService.getAllParties();
+    }
 
 }

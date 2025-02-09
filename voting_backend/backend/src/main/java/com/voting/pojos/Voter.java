@@ -8,6 +8,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -53,4 +55,9 @@ public class Voter extends BaseEntity {
     @UpdateTimestamp
     @Column(name = "updated_on")
     private LocalDateTime updatedOn;
+    
+    @Enumerated(EnumType.STRING) // create column of type
+	// varchar to store the name of constant
+	@Column(length = 30) // varchar(30)
+	private UserRole role = UserRole.ROLE_VOTER;
 }
