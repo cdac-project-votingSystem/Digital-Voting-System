@@ -7,7 +7,7 @@ const UpcomingElections = () => {
   const [result, SetResult] = useState({
     electionStartTime: null,
     electionEndTime: null,
-    cname: "Loading..."
+    cname: "Loading...",
   });
 
   const onLoad = async () => {
@@ -23,7 +23,7 @@ const UpcomingElections = () => {
         //   electionEndTime: res.data.message.electionEndTime,
         //   cname: res.data.message.cname
         // }));
-        SetResult(res.data.message);
+        SetResult(res.data);
       } else {
         toast.error("Try again");
       }
@@ -42,17 +42,33 @@ const UpcomingElections = () => {
         <h2>Upcoming Elections</h2>
       </div>
       <div className="card-body">
-        <ul className="list-group">
-          <li className="list-group-item">
-            <h2>{result.cname}</h2>
-            <h2>Start - {result.electionStartTime ? new Date(result.electionStartTime).toLocaleString() : "TBD"}</h2>
-            <h2>End - {result.electionEndTime ? new Date(result.electionEndTime).toLocaleString() : "TBD"}</h2>
-          </li>
-        </ul>
+        <table className="table table-bordered text-center">
+          <tbody>
+            <tr>
+              <th>Constituency</th>
+              <td>{result.cname}</td>
+            </tr>
+            <tr>
+              <th>Start</th>
+              <td>
+                {result.electionStartTime
+                  ? new Date(result.electionStartTime).toLocaleString()
+                  : "TBD"}
+              </td>
+            </tr>
+            <tr>
+              <th>End</th>
+              <td>
+                {result.electionEndTime
+                  ? new Date(result.electionEndTime).toLocaleString()
+                  : "TBD"}
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   );
 };
 
 export default UpcomingElections;
-

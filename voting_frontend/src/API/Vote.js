@@ -21,7 +21,7 @@ export async function voteClick(vid,cid){
 }
 
 export async function isVotedFxn(vid){
-    const path  = createUrl("voters/hasVoted"+vid);
+    const path  = createUrl("voters/hasVoted/"+vid);
     try{
          const response = await axios.get(path,{
             headers: {
@@ -38,3 +38,5 @@ export async function isVotedFxn(vid){
 }
     } 
 }
+
+// export async function casteVote()

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAllValidCandidate } from "../../../API/Candidate";
+import { getAllCandiateContituencyWise, getAllValidCandidate } from "../../../API/Candidate";
 import { toast } from "react-toastify";
 import { isVotedFxn, voteClick } from "../../../API/Vote";
 import { jwtDecode } from "jwt-decode";
@@ -10,18 +10,20 @@ function Voting() {
 
   const onLoad = async () => {
     try {
-      const res = await getAllValidCandidate();
       const token = localStorage["token"];
       const obj = jwtDecode(token);
       const vid = obj.user_id;
+      const res = await getAllCandiateContituencyWise(vid);
       const res2 = await isVotedFxn(vid);
 
       if (res.status === 200) {
+        console.log(res)
         setCandidateList(res.data);
       }
 
-      if (res2?.data?.message?.hasVoted) {
-        setIsVoted(true);
+      if (res2.status == 200) {
+        console.log(res2);
+          setIsVoted(res2.data.hasVoted)
       }
     } catch (ex) {
       toast.error("Try again");
@@ -84,20 +86,20 @@ function Voting() {
                 <tr className="align-middle" key={candidate.id}>
                   <td>
                     <img
-                      src={candidate.candidateImage}
+                      src={candidate.image}
                       alt="Candidate"
                       style={{ width: "100px" }}
                     />
                   </td>
                   <td>
-                    {candidate.firstName} {candidate.lastName}
+                    {candidate.name}
                   </td>
                   <td>
-                    {candidate.partyName} ({candidate.abbreviation})
+                    {candidate.partyName}
                   </td>
                   <td>
                     <img
-                      src={candidate.partyLogo}
+                      src={candidate.logo}
                       alt="Party Logo"
                       style={{ width: "100px" }}
                     />

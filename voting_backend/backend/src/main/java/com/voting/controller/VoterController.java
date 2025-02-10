@@ -1,5 +1,7 @@
 package com.voting.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.voting.dtos.ApiResponse;
+import com.voting.dtos.CandidateResDTO;
+import com.voting.dtos.CandidateVoteDTO;
 import com.voting.dtos.HasVotedResponseDTO;
 import com.voting.dtos.VoterRequestDTO;
 import com.voting.dtos.VoterResponseDTO;
@@ -91,5 +95,11 @@ public class VoterController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body( voterService.castVote(voterId, candidateId));
     }
+	
+	@GetMapping("/vote/{uid}")
+	public List<CandidateVoteDTO> getMethodName(@PathVariable Long uid) {
+		return voterService.getAllCandidate(uid);
+	}
+	
 	
 }

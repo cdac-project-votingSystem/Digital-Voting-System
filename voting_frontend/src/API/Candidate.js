@@ -42,3 +42,21 @@ export async function getAllValidCandidate(){
       }
   }
 }
+
+export async function getAllCandiateContituencyWise(uid){
+  try{
+    const url = createUrl("voters/vote/"+uid) 
+    const response = await axios.get(url,{
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    return response;
+}
+catch(ex){
+return {
+    status: 'error',
+    error :ex
+}
+}
+}

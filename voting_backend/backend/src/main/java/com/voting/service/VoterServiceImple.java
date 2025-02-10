@@ -1,5 +1,8 @@
 package com.voting.service;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
@@ -11,13 +14,16 @@ import org.springframework.stereotype.Service;
 import com.voting.custom_exceptions.ResourceNotFoundException;
 import com.voting.dao.CandidateDao;
 import com.voting.dao.ConstituencyDao;
+import com.voting.dao.ElectionDao;
 import com.voting.dao.VoterDao;
 import com.voting.dtos.ApiResponse;
+import com.voting.dtos.CandidateVoteDTO;
 import com.voting.dtos.VoterRequestDTO;
 import com.voting.dtos.VoterResponseDTO;
 import com.voting.dtos.VoterSignupDTO;
 import com.voting.pojos.Candidate;
 import com.voting.pojos.Constituency;
+import com.voting.pojos.Election;
 import com.voting.pojos.Voter;
 
 import jakarta.transaction.Transactional;
@@ -39,8 +45,13 @@ public class VoterServiceImple implements VoterService {
     private ModelMapper modelMapper;
 
     @Autowired
+    private ElectionDao electionDao;
+    
+    @Autowired
     private PasswordEncoder passwordEncoder; // Ensure password encoding
-
+    
+    @Autowired
+    ImageHandlingService imageHandlingService;
 
 
     @Override
@@ -170,6 +181,38 @@ public class VoterServiceImple implements VoterService {
 
             return new ApiResponse("Congrats voted");
  
+	}
+
+//	 private Long id;
+//	 private String name;
+//	 private String partyName;
+//	 private String image;
+//	 private String logo;
+	
+	@Override
+	public List<CandidateVoteDTO> getAllCandidate(Long uid){
+		Voter v = voterDao.findById(uid).orElseThrow(()-> new ResourceNotFoundException("voter not found"));
+		Constituency c = v.getConstituency();
+		List<Candidate> list = candidateDao.findAllByConstituency_Id(c.getId());
+		List<CandidateVoteDTO> res  =new ArrayList<>();
+		for(Candidate can : list) {
+			if(can.getIsValid() == 1) {
+				CandidateVoteDTO temp = new CandidateVoteDTO();
+				temp.setId(can.getCandidateId());
+				temp.setName(can.getVoter().getFirstName()+ " "+can.getVoter().getLastName());
+				temp.setPartyName(can.getPoliticalParty().getPartyName() + " ("+ can.getPoliticalParty().getAbbreviation()+")");
+				try {
+					temp.setImage("data:image/jpeg;base64,"+imageHandlingService.retrieveImage(can, "candidate"));
+					temp.setLogo("data:image/jpeg;base64,"+imageHandlingService.retrieveImage(can.getPoliticalParty(),"party"));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				res.add(temp);
+			}
+		}
+		return res;
 	}
 }
 
