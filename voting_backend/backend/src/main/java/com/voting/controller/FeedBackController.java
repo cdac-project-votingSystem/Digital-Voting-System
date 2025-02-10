@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.voting.pojos.Feedback;
 import com.voting.service.FeedbackService;
 
-//@CrossOrigin("*")
+
 @RestController
 @RequestMapping("/feedback")
 public class FeedBackController {

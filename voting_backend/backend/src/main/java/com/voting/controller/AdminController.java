@@ -21,7 +21,7 @@ import com.voting.service.AdminService;
 
 import jakarta.validation.Valid;
 
-//@CrossOrigin("*")
+
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
@@ -35,7 +35,8 @@ public class AdminController {
 		}
 
 		// For Validate Political Party (Success)
-		@PatchMapping("/validatePoliticalParty/valid/{id}")
+		@CrossOrigin(origins = "http://localhost:3000")
+		@PostMapping("/validatePoliticalParty/valid/{id}")
 		public ResponseEntity<?> validatePoliticalParty(@PathVariable Long id){
 		    return ResponseEntity.status(HttpStatus.OK).body(adminService.validPoliticalParty(id));
 		}

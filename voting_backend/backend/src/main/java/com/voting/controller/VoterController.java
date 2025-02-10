@@ -23,7 +23,7 @@ import com.voting.service.VoterService;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 
-//@CrossOrigin("*")
+
 @RestController
 @RequestMapping("/voters")
 public class VoterController {
