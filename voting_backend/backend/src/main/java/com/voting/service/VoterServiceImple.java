@@ -1,6 +1,7 @@
 package com.voting.service;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -48,10 +49,11 @@ public class VoterServiceImple implements VoterService {
     private ElectionDao electionDao;
     
     @Autowired
-    private PasswordEncoder passwordEncoder; // Ensure password encoding
+    private PasswordEncoder passwordEncoder; 
     
     @Autowired
     ImageHandlingService imageHandlingService;
+    
 
 
     @Override
@@ -64,7 +66,7 @@ public class VoterServiceImple implements VoterService {
 
         Voter voter = optionalVoter.get();
         VoterResponseDTO voterResponseDTO = modelMapper.map(voter, VoterResponseDTO.class);
-        voterResponseDTO.setConstituencyName(voter.getConstituency().getName());
+        voterResponseDTO.setConstituencyId(voter.getConstituency().getId());
 
         return voterResponseDTO;
     }
@@ -86,27 +88,15 @@ public class VoterServiceImple implements VoterService {
         return false; // Voter not found
     }
 
-    @Override
-    public boolean updateVoter(Long voterId, VoterRequestDTO voterRequestDTO) {
-        Optional<Voter> voterOptional = voterDao.findById(voterId);
+//    private String firstName;
+//    private String lastName;
+//    private String contactNumber;
+//    private LocalDate dob;
+//    private int constituencyId;
+//    private String adhaarNumber;
+    @Transactional
 
-        if (voterOptional.isPresent()) {
-            Voter voter = voterOptional.get();
 
-            modelMapper.map(voterRequestDTO, voter);
-
-            Optional<Constituency> constituencyOptional = constituencyDao.findById((long) voterRequestDTO.getConstituencyId());
-            if (constituencyOptional.isPresent()) {
-                voter.setConstituency(constituencyOptional.get());
-            } else {
-                return false; // Constituency not found
-            }
-
-            voterDao.save(voter);
-            return true;
-        }
-        return false;
-    }
 
     @Override
     public ApiResponse login(String email, String password) {
@@ -125,7 +115,32 @@ public class VoterServiceImple implements VoterService {
             return new ApiResponse("Invalid credentials!");
         }
     }
+    public boolean updateVoter(Long voterId, VoterRequestDTO voterRequestDTO) {
+        Voter voter = voterDao.findById(voterId)
+                .orElseThrow(() -> new ResourceNotFoundException("Voter not found"));
+        Constituency c=  constituencyDao.findById( voter.getConstituency().getId())
+        		 .orElseThrow(() -> new ResourceNotFoundException("constiurncy not found"));
+        
+        c.setTotalVoters(c.getTotalVoters()-1);
+        // Check if constituency is changing
+        constituencyDao.save(c);
 
+        voter.setFirstName(voterRequestDTO.getFirstName());
+        voter.setLastName(voterRequestDTO.getLastName());
+        voter.setContactNumber(voterRequestDTO.getContactNumber());
+        voter.setDob(voterRequestDTO.getDob());
+        voter.setAdhaarNumber(voterRequestDTO.getAdhaarNumber());
+        
+         Constituency cnew= constituencyDao.findById( (long) voterRequestDTO.getConstituencyId())
+        		 .orElseThrow(() -> new ResourceNotFoundException("constiurncy new not found" + voterRequestDTO.getConstituencyId()));
+        cnew.setTotalVoters(cnew.getTotalVoters()+1);
+        
+        voter.setConstituency(cnew);
+        constituencyDao.save(cnew);
+        voterDao.save(voter);
+        
+        return true;
+    }
     @Override
     public ApiResponse signup(VoterSignupDTO entity) {
         // ✅ Check if voter already exists

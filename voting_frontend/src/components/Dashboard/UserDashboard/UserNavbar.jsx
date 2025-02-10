@@ -11,7 +11,7 @@ const UserNavbar = () => {
             className={({ isActive }) =>
               isActive ? "active nav-link" : "nav-link"
             }
-            to="/user-dashboard/user-info"
+            to="/user-dashboard/voterInfo"
           >
             User Information
           </NavLink>
@@ -44,7 +44,7 @@ const UserNavbar = () => {
             className={({ isActive }) =>
               isActive ? "active nav-link" : "nav-link"
             }
-            to="/user-dashboard/upcoming-elections"
+            to="/user-dashboard/candidateStatus"
           >
             candidate verification Status
           </NavLink>

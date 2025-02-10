@@ -39,4 +39,40 @@ export async function isVotedFxn(vid){
     } 
 }
 
-// export async function casteVote()
+export async function getVoterInfo(vid){
+  const path  = createUrl("voters/"+vid);
+  try{
+       const response = await axios.get(path,{
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+       return response;
+  }
+  catch(ex){
+      return {
+          status: 'error',
+          error :ex
+      
+}
+  } 
+}
+
+export async function updateVoter(uid,body){
+  const path  = createUrl("voters/"+uid);
+  try{
+       const response = await axios.patch(path,body,{
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+       return response;
+  }
+  catch(ex){
+      return {
+          status: 'error',
+          error :ex
+      
+}
+  } 
+}

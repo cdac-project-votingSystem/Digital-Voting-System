@@ -50,7 +50,7 @@ public class VoterController {
 	    return ResponseEntity.ok(voter);
 	}
 	
-	@PutMapping("/{voterId}")
+	@PatchMapping("/{voterId}")
 	public ResponseEntity<ApiResponse> updateVoter(
 	        @PathVariable Long voterId,
 	        @RequestBody VoterRequestDTO voterRequestDTO) {

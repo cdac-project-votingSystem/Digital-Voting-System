@@ -16,7 +16,8 @@ public class VoterResponseDTO {
     private String contactNumber;
     private LocalDate dob;
     private String adhaarNumber;
-    private String constituencyName;
-    private boolean hasVoted;
+    private Long constituencyId;
+    private String email;
+    
 }
 

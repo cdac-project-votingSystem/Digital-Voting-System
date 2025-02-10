@@ -80,8 +80,9 @@ const App = () => {
             <Route path="/admin" element={<AdminDashBoardHome />} />
 
             <Route path="/user-dashboard" element={<UserDashboard />}>
-              <Route path="voter" element={<UserInfo />} />
+              {/* <Route path="voter" element={<UserInfo />} /> */}
               <Route path="voting" element={<Voting />} />
+              <Route path="voterInfo" element={<UserInfo/>}/>
               <Route
                 path="upcoming-elections"
                 element={<UpcomingElections />}
