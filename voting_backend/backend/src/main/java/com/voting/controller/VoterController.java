@@ -42,6 +42,7 @@ public class VoterController {
 	public ResponseEntity<ApiResponse> updateVoter(
 	        @PathVariable Long voterId,
 	        @RequestBody VoterRequestDTO voterRequestDTO) {
+		System.out.println(voterRequestDTO);
 	    boolean updated = voterService.updateVoter(voterId, voterRequestDTO);
 	    if (!updated) {
 	        return ResponseEntity.status(HttpStatus.NOT_FOUND)

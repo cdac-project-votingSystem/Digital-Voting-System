@@ -14,5 +14,6 @@ public class ResultDTO {
     private int voteGain;
     private int constituencyTotalVotes;
     private int totalVoteCast;
+    private String logo;
 }
 

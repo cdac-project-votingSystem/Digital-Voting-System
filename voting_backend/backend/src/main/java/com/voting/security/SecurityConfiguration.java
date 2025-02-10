@@ -36,7 +36,7 @@ public class SecurityConfiguration {
 		                "/signup", "/login",
 		                "/v*/api-doc*/**", "/swagger-ui/**", 
 		                "/advanceSearch/**", "/politicalParty/**", 
-		                "/feedback/**", "/constituency/**","/election/**","candidates/**"
+		                "/feedback/**", "/constituency/**","/election/**","/candidates/**","/result/**","/voters/**"
 		            ).permitAll()
 		            .requestMatchers(HttpMethod.OPTIONS).permitAll()
 		            .requestMatchers("/voters/**").hasRole("VOTER")
