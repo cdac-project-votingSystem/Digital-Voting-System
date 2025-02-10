@@ -47,6 +47,8 @@ public class AdvanceSearchServiceImple implements AdvanceSearchService {
         }
 
         for (Candidate candidate : listAllCandidate) {
+        	if(candidate.getIsValid() == 1) {
+        		
             PoliticalParty party = candidate.getPoliticalParty();
             Voter voter = candidate.getVoter();
             Constituency constituency = candidate.getConstituency();
@@ -75,6 +77,7 @@ public class AdvanceSearchServiceImple implements AdvanceSearchService {
                 temp.setCandidateImage(null);
             }
             res.add(temp);
+        	}
         }
 
         return res;

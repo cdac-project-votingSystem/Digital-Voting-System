@@ -60,3 +60,22 @@ return {
 }
 }
 }
+
+export async function candidateValid(uid){
+  try{
+    const url = createUrl("candidates/isValid/"+uid) 
+    const response = await axios.get(url,{
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    console.log(response)
+    return response;
+}
+catch(ex){
+return {
+    status: 'error',
+    error :ex
+}
+}
+}

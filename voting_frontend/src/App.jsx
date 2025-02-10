@@ -25,6 +25,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import CandidateSignUp from "./components/Candidate/CandidateSignUp.jsx";
 import AdvanceSearch from "./components/AdvanceSearch.jsx";
+import Verification from "./components/Dashboard/UserDashboard/Verification.jsx";
 
 
 const App = () => {
@@ -87,6 +88,7 @@ const App = () => {
                 path="upcoming-elections"
                 element={<UpcomingElections />}
               />
+              <Route path="candidateStatus" element={<Verification/>}/>
             </Route>
 
             <Route path="/voting" element={<Voting />} />
