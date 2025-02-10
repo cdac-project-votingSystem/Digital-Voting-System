@@ -38,7 +38,7 @@ public class SecurityConfiguration {
                 .requestMatchers(
                     "/signup", "/login",
                     "/v*/api-doc*/**", "/swagger-ui/**", "/advanceSearch/**",
-                    "/politicalParty/**", "/feedback/**", "/constituency/**"
+                    "/politicalParty/**", "/feedback/**", "/constituency/**", "/result/**"
                 ).permitAll() // Public endpoints
                 .requestMatchers(HttpMethod.OPTIONS).permitAll() // Allow preflight requests
                 .requestMatchers("/voters/**").hasRole("VOTER") // Voter-specific endpoints
