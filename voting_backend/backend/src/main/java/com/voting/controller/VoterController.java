@@ -9,11 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.service.annotation.PutExchange;
 
 import com.voting.dtos.ApiResponse;
 import com.voting.dtos.CandidateVoteDTO;
@@ -22,9 +21,6 @@ import com.voting.dtos.VoterRequestDTO;
 import com.voting.dtos.VoterResponseDTO;
 import com.voting.service.VoterService;
 
-import org.springframework.web.bind.annotation.RequestBody;
-import jakarta.validation.Valid;
-
 
 @RestController
 @RequestMapping("/voters")
@@ -32,19 +28,7 @@ public class VoterController {
 	@Autowired
 	VoterService voterService;
 	
-	@PutMapping("/{voterId}")
-    public ResponseEntity<ApiResponse> updateVoter(
-            @PathVariable Long voterId,
-            @Valid @RequestBody VoterRequestDTO voterRequestDTO) {
-		System.out.println(voterRequestDTO.getFirstName());
-        boolean updated = voterService.updateVoter(voterId, voterRequestDTO);
-        if (!updated) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new ApiResponse("Voter not found with ID: " + voterId));
-        }
-        return ResponseEntity.ok(new ApiResponse("Voter details updated successfully"));
-    }
-	
+
 	
 	@GetMapping("/{voterId}")
 	public ResponseEntity<VoterResponseDTO> getVoterById(@PathVariable Long voterId) {
@@ -54,8 +38,6 @@ public class VoterController {
 	    }
 	    return ResponseEntity.ok(voter);
 	}
-<<<<<<< HEAD
-=======
 	
 	@PatchMapping("/{voterId}")
 	public ResponseEntity<ApiResponse> updateVoter(
@@ -69,7 +51,6 @@ public class VoterController {
 	    }
 	    return ResponseEntity.ok(new ApiResponse("Voter details updated successfully"));
 	}
->>>>>>> 3aabb252a8e355e860cde1482ddd82635832a7a7
 
 	
 	@PostMapping("/resetPassword")
