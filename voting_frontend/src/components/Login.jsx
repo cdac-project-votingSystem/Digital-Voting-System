@@ -33,7 +33,7 @@ const Login = () => {
       }
 
       const user = jwtDecode(res.data.token);
-<<<<<<< HEAD
+
         if(user.authorities == "ROLE_VOTER"){
             navigate("/user-dashboard");
         }else if(user.authorities  == "ROLE_ADMIN"){
@@ -42,15 +42,6 @@ const Login = () => {
     }
     catch(ex){
       toast.error("try again")
-=======
-      if (user?.authorities?.includes("ROLE_VOTER")) {
-        navigate("/voter");
-      } else if (user?.authorities?.includes("ROLE_ADMIN")) {
-        navigate("/admin");
-      }
-    } catch (ex) {
-      toast.error("try again");
->>>>>>> v4
     }
   };
 

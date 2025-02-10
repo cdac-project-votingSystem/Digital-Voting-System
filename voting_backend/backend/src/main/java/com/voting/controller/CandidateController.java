@@ -17,17 +17,7 @@ import com.voting.service.CandidateService;
 
 import jakarta.validation.Valid;
 
-<<<<<<< HEAD
-//@CrossOrigin(origins = { 
-//	    "http://localhost:3000", 
-//	    "http://localhost:3001", 
-//	    "http://localhost:3002", 
-//	    "http://localhost:3003", 
-//	    "http://localhost:3004", 
-//	    "http://localhost:3005"
-//	})
-=======
->>>>>>> v4
+
 @RestController
 @RequestMapping("/candidates")
 public class CandidateController {
