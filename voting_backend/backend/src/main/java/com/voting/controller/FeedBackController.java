@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.voting.pojos.Feedback;
 import com.voting.service.FeedbackService;
 
+<<<<<<< HEAD
 //@CrossOrigin(origins = { 
 //	    "http://localhost:3000", 
 //	    "http://localhost:3001", 
@@ -23,6 +24,9 @@ import com.voting.service.FeedbackService;
 //	    "http://localhost:3004", 
 //	    "http://localhost:3005"
 //	})
+=======
+
+>>>>>>> v4
 @RestController
 @RequestMapping("/feedback")
 public class FeedBackController {

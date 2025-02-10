@@ -22,17 +22,18 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    try{
-      const res= await userLogin(formData);
+    try {
+      const res = await userLogin(formData);
       console.log(res);
-      
+
       if (res?.data?.token) {
-        localStorage.setItem("token", res.data.token); 
+        localStorage.setItem("token", res.data.token);
       }
 
       const user = jwtDecode(res.data.token);
+<<<<<<< HEAD
         if(user.authorities == "ROLE_VOTER"){
             navigate("/user-dashboard");
         }else if(user.authorities  == "ROLE_ADMIN"){
@@ -41,6 +42,15 @@ const Login = () => {
     }
     catch(ex){
       toast.error("try again")
+=======
+      if (user?.authorities?.includes("ROLE_VOTER")) {
+        navigate("/voter");
+      } else if (user?.authorities?.includes("ROLE_ADMIN")) {
+        navigate("/admin");
+      }
+    } catch (ex) {
+      toast.error("try again");
+>>>>>>> v4
     }
   };
 

@@ -27,6 +27,7 @@ import com.voting.service.VoterService;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 
+<<<<<<< HEAD
 //@CrossOrigin(origins = { 
 //	    "http://localhost:3000", 
 //	    "http://localhost:3001", 
@@ -35,6 +36,9 @@ import jakarta.validation.Valid;
 //	    "http://localhost:3004", 
 //	    "http://localhost:3005"
 //	})
+=======
+
+>>>>>>> v4
 @RestController
 @RequestMapping("/voters")
 public class VoterController {
