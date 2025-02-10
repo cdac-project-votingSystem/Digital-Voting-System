@@ -2,6 +2,7 @@ package com.voting.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,6 +97,10 @@ public class AdminServiceImple implements AdminService {
 
         
         Election e = modelMapper.map(entity, Election.class);
+        Optional<Election> optionalE =  electionDao.findByConstituency_Id(constituency.getId());
+        if(optionalE.isPresent() ) {
+        	electionDao.deleteById(optionalE.get().getElectionId());;
+        }
         e.setConstituency(constituency);
 
         List<Candidate> listCandidate = candidateDao.findAllByConstituency_Id(constituency.getId());

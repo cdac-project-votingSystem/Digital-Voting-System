@@ -1,4 +1,6 @@
+import axios from "axios";
 import axiosInstance from "./AxiosInstance";
+import { createUrl } from "../utils";
 
 export async function registerCandidate(form) {
   const formData = new FormData();
@@ -8,7 +10,7 @@ export async function registerCandidate(form) {
   formData.append("image", form.image);
 
   try {
-    const response = await axiosInstance.post("candidates/add", formData, {
+    const response = await axios.post(createUrl("candidates/add"), formData, {
       headers: {
         "Content-Type": "multipart/form-data", 
       },
@@ -23,5 +25,20 @@ export async function registerCandidate(form) {
       status: "error",
       error: ex,
     };
+  }
+}
+
+
+export async function getAllValidCandidate(){
+  try{
+          const url = createUrl("candidates/getAllValidCandidate") 
+          const response = await axios.get(url);
+          return response;
+  }
+  catch(ex){
+      return {
+          status: 'error',
+          error :ex
+      }
   }
 }

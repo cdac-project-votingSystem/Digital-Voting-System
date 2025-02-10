@@ -28,36 +28,29 @@ public class SecurityConfiguration {
 	
 	// Configure the bean to customize spring security filter chain
 		@Bean
-		public SecurityFilterChain authorizeRequests(HttpSecurity http) throws Exception
-		{
-			//1. Disable CSRF filter
-			http
-			.csrf(customizer -> customizer.disable())
-			//2. configure URL based access
-			
-	        .authorizeHttpRequests
-	        (request -> 
-	        request.requestMatchers(
-	        		"/signup","/login",
-					"/v*/api-doc*/**","/swagger-ui/**","/advanceSearch/**","/politicalParty/**","/feedback/**","/constituency/**").permitAll() 
-	        //required explicitly for JS clients (eg React app - to permit pre flight requests)
-	        
-	        .requestMatchers(HttpMethod.OPTIONS).permitAll()	
-	       .requestMatchers("/voters/**")
-	       .hasRole("VOTER")
-	       .requestMatchers("/admin/**")
-	       .hasRole("ADMIN")        		
-	        .anyRequest().authenticated())  
-	  //      .httpBasic(Customizer.withDefaults()) - replacing it by custom JWT filter
-	        .sessionManagement(session 
-	        		-> session.sessionCreationPolicy(
-	        				SessionCreationPolicy.STATELESS));
-			//adding custom JWT fi;lter before any auth filter
-			http.addFilterBefore(customJWTAuthenticationFilter, 
-					UsernamePasswordAuthenticationFilter.class);
-	        return http.build();
+		public SecurityFilterChain authorizeRequests(HttpSecurity http) throws Exception {
+		    http
+		        .cors(Customizer.withDefaults()) // Add this line to enable CORS in Security
+		        .csrf(csrf -> csrf.disable())
+		        .authorizeHttpRequests(request -> request
+		            .requestMatchers(
+		                "/signup", "/login",
+		                "/v*/api-doc*/**", "/swagger-ui/**", 
+		                "/advanceSearch/**", "/politicalParty/**", 
+		                "/feedback/**", "/constituency/**","/election/**","candidates/**"
+		            ).permitAll()
+		            .requestMatchers(HttpMethod.OPTIONS).permitAll()
+		            .requestMatchers("/voters/**").hasRole("VOTER")
+		            .requestMatchers("/admin/**").hasRole("ADMIN")
+		            .anyRequest().authenticated()
+		        )
+		        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+		    http.addFilterBefore(customJWTAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
+		    return http.build();
 		}
-		//to supply Auth Mgr , configure it as a spring bean
+
 		@Bean
 		public AuthenticationManager authenticationManager
 		(AuthenticationConfiguration config) throws Exception

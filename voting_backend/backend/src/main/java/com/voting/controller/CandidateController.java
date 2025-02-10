@@ -10,12 +10,21 @@ import org.springframework.web.bind.annotation.*;
 
 import com.voting.dtos.CandidateRequestDTO;
 import com.voting.dtos.CandidateResDTO;
+import com.voting.dtos.VotingDTO;
+import com.voting.dtos.AdvanceSearchResponseDTO;
 import com.voting.dtos.ApiResponse;
 import com.voting.service.CandidateService;
 
 import jakarta.validation.Valid;
 
-@CrossOrigin("*")
+//@CrossOrigin(origins = { 
+//	    "http://localhost:3000", 
+//	    "http://localhost:3001", 
+//	    "http://localhost:3002", 
+//	    "http://localhost:3003", 
+//	    "http://localhost:3004", 
+//	    "http://localhost:3005"
+//	})
 @RestController
 @RequestMapping("/candidates")
 public class CandidateController {
@@ -33,6 +42,12 @@ public class CandidateController {
     public List<CandidateResDTO> candidateToValidate() {
         return candidateService.viewAllToValidate();
        }
+    
+    @GetMapping("/getAllValidCandidate")
+    public List<VotingDTO>  getAllValidCandidate() {
+        return candidateService.getAllValid();
+    }
+    
     
 }
 

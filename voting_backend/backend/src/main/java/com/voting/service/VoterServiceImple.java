@@ -153,35 +153,23 @@ public class VoterServiceImple implements VoterService {
 	}
 
 	@Override
-	public boolean castVote(Long voterId, Long candidateId) {
+	public ApiResponse castVote(Long voterId, Long candidateId) {
 		// TODO Auto-generated method stub
-		Optional<Voter> voterOpt = voterDao.findById(voterId);
-        Optional<Candidate> candidateOpt = candidateDao.findById(candidateId);
+		Voter voter = voterDao.findById(voterId).orElseThrow(()-> new ResourceNotFoundException("voter id not valid"));
+        Candidate candidate = candidateDao.findById(candidateId).orElseThrow(()-> new ResourceNotFoundException("candidate id not valid"));
 
-        if (voterOpt.isPresent() && candidateOpt.isPresent()) {
-            Voter voter = voterOpt.get();
-            Candidate candidate = candidateOpt.get();
-
-            if (voter.isHasVoted()) {
-                return false; // Voter has already voted
-            }
-
-            // Increment candidate's vote count
             candidate.setVotes(candidate.getVotes() + 1);
             candidateDao.save(candidate);
 
-            // Increment constituency's votes_casted count
             Constituency constituency = voter.getConstituency();
             constituency.setVotesCast(constituency.getVotesCast() + 1);
             constituencyDao.save(constituency);
 
-            // Mark voter as voted
             voter.setHasVoted(true);
             voterDao.save(voter);
 
-            return true;
-        }
-        return false;
+            return new ApiResponse("Congrats voted");
+ 
 	}
 }
 

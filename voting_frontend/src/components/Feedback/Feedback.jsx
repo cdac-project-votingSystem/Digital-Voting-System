@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { submitFeedback } from '../../API/Feedback';
 
 function Feedback() {
     const [formData, setFormData] = useState({
-        name: '',
         email: '',
-        subject: '',
-        message: ''
+        fullName: '',
+        title: '',
+        description: ''
     });
+
+    const navigate = useNavigate();
 
     const handleChange = (event) => {
         setFormData({
@@ -15,11 +20,27 @@ function Feedback() {
         });
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log("Form Data Submitted:", formData);
-        
-        setFormData({ name: '', email: '', subject: '', message: '' });
+        try{
+            const res = await submitFeedback(formData);
+            if(res.status == 201){
+                toast.success("Thank you for your Feedback")
+                setFormData({
+                    email: '',
+                    fullName: '',
+                    title: '',
+                    description: ''
+                });
+                navigate("/");
+            }  
+            else    
+            toast.error("try again ")
+        }
+        catch(ex){
+            toast.error("try again ")
+        }
+       
     };
 
     return (
@@ -31,13 +52,13 @@ function Feedback() {
                 <h3 className='text-center text-primary p-2 rounded mb-1 font fw-bold'>FEEDBACK FORM</h3>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group my-2">
-                        <label htmlFor="name" className='mb-2'>Name</label>
+                        <label htmlFor="fullName" className='mb-2'>Name</label>
                         <input 
                             type="text" 
                             className="form-control" 
-                            id="name" 
-                            name="name"
-                            value={formData.name} 
+                            id="fullName" 
+                            name="fullName"
+                            value={formData.fullName} 
                             onChange={handleChange} 
                             placeholder="Enter Name" 
                             required
@@ -57,28 +78,28 @@ function Feedback() {
                         />
                     </div>
                     <div className="form-group my-2">
-                        <label htmlFor="subject" className='mb-2'>Subject</label>
+                        <label htmlFor="title" className='mb-2'>Subject</label>
                         <input 
                             type="text" 
                             className="form-control" 
-                            id="subject" 
-                            name="subject"
-                            value={formData.subject} 
+                            id="title" 
+                            name="title"
+                            value={formData.title} 
                             onChange={handleChange} 
-                            placeholder="Enter Subject" 
+                            placeholder="Enter Title" 
                             required
                         />
                     </div>
                     <div className="form-group my-2">
-                        <label htmlFor="message" className='mb-2'>Message</label>
+                        <label htmlFor="description" className='mb-2'>Message</label>
                         <textarea 
                             className="form-control" 
-                            id="message" 
-                            name="message"
+                            id="description" 
+                            name="description"
                             rows="5"
-                            value={formData.message} 
+                            value={formData.description} 
                             onChange={handleChange} 
-                            placeholder="Enter your message"
+                            placeholder="Description"
                             required
                         ></textarea>
                     </div>

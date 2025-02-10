@@ -3,9 +3,9 @@ import { createUrl } from "../utils";
 import axiosInstance from "./AxiosInstance";
 
 export async function submitForm(formdata){
-        const url = "signup"
+        const url = createUrl("signup")
         try{
-            const response = await axiosInstance.post(url,formdata);
+            const response = await axios.post(url,formdata);
             return response;
         }
         catch(ex){

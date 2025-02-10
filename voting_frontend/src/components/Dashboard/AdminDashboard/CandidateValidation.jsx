@@ -30,7 +30,7 @@ function CandidateValidation() {
       <h2>Candidate Validation</h2>
       </div>
 
-    <div className='container d-flex flex-wrap'>
+    <div className='container d-flex flex-wrap '>
     
         {
           candiateListToValdiate.length == 0 ? <h2> No candidate to Validate </h2>:  

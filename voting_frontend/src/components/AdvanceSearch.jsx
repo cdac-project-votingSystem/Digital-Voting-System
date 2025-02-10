@@ -1,50 +1,64 @@
 import React, { useState, useEffect } from "react";
 import Partylogo from "../../src/assests/partyLogo/bjp.jpeg";
 import ProfilePhoto from "../../src/assests/adminpage/profile.jpg";
+import { AdvanceSearchFxn } from "../API/AdvanceSearch";
+import { toast } from "react-toastify";
+import { getAllConstituency } from "../API/Constituency";
+import { getAllParty } from "../API/Party";
 
 const AdvanceSearch = () => {
-  const [candidates, setCandidates] = useState([]);
-  const [searchParams, setSearchParams] = useState({
-    constituency: "",
-    politicalParty: "",
+  
+  const [advanceSearch,setAdvanceSearch] = useState([]);
+  const [constituencyList, setConstituencyList] = useState([]);
+  const [partyList,setPartyList] = useState([]);
+
+  const onLoad = async()=>{
+    try{
+      const res1 = await getAllConstituency();
+      if(res1.status == 200)
+        setConstituencyList(res1.data);
+      else
+          toast.error("try again");
+      const res2 = await getAllParty();
+      if(res2.status ==  200)
+          setPartyList(res2.data)
+      else
+          toast.error("try again");
+    }
+    catch(ex){
+      toast.error("try again")
+    }
+  }
+  const onSearch = async(pid,cid)=>{
+    try{
+      const res = await AdvanceSearchFxn(pid,cid);
+      if(res.status == 200)
+        setAdvanceSearch(res.data);
+      else
+      toast.error("try again")
+    }
+    catch(ex){
+      toast.error("try again")
+
+    }
+  }
+
+  useEffect(()=>{
+    onLoad();
+  },[])
+
+  const [temp ,setTemp] = useState({
+    pid:null,
+    cid:null
   });
 
-  useEffect(() => {
-    const candidateData = [
-      {
-        id: 1,
-        partyName: "Party A",
-        abbreviation: "PA",
-        partyLogo: "https://via.placeholder.com/50",
-        constituencyName: "Mumbai South",
-        firstName: "John",
-        lastName: "Doe",
-        candidateImage: "https://via.placeholder.com/100",
-      },
-      {
-        id: 2,
-        partyName: "Party B",
-        abbreviation: "PB",
-        partyLogo: "https://via.placeholder.com/50",
-        constituencyName: "Delhi Central",
-        firstName: "Jane",
-        lastName: "Smith",
-        candidateImage: "https://via.placeholder.com/100",
-      },
-    ];
-    setCandidates(candidateData);
-  }, []);
-
-  const constituencies = [...new Set(candidates.map((c) => c.constituencyName))];
-  const parties = [...new Set(candidates.map((c) => c.partyName))];
-
   const handleChange = (e) => {
-    setSearchParams({ ...searchParams, [e.target.name]: e.target.value });
+   setTemp( {
+    ...temp,
+    [e.target.name] : e.target.value 
+  })
   };
 
-  const handleSearch = () => {
-    console.log("Search criteria:", searchParams);
-  };
 
   return (
     <div className="container">
@@ -54,32 +68,34 @@ const AdvanceSearch = () => {
         <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "20px" }} className="justify-content-center">
           <label style={{ fontWeight: "bold" }}>Constituency:</label>
           <select
-            name="constituency"
-            value={searchParams.constituency}
+            name="cid"
+            value={temp.cid}
             onChange={handleChange}
             style={{ padding: "8px", borderRadius: "5px", border: "1px solid #ccc" }}
           >
             <option value="">Select Constituency</option>
-            {constituencies.map((constituency, index) => (
-              <option key={index} value={constituency}>{constituency}</option>
+            <option key={0} value={0}>Select All</option>
+            {constituencyList.map((constituency) => (
+              <option key={constituency.id} value={constituency.id}>{constituency.name}</option>
             ))}
           </select>
 
           <label style={{ fontWeight: "bold" }}>Political Party:</label>
           <select
-            name="politicalParty"
-            value={searchParams.politicalParty}
+            name="pid"
+            value={temp.pid}
             onChange={handleChange}
             style={{ padding: "8px", borderRadius: "5px", border: "1px solid #ccc" }}
           >
             <option value="">Select Party</option>
-            {parties.map((party, index) => (
-              <option key={index} value={party}>{party}</option>
+            <option key={0} value={0}>Select All</option>
+            {partyList.map((party) => (
+              <option key={party.partyId} value={party.partyId}>{party.partyName} | {party.abbreviation}</option>
             ))}
           </select>
 
           <button
-            onClick={handleSearch}
+            onClick={() => {onSearch(temp.pid,temp.cid)}}
             style={{
               padding: "10px 15px",
               borderRadius: "5px",
@@ -92,7 +108,7 @@ const AdvanceSearch = () => {
             Search
           </button>
         </div>
-        <table className="table table-striped table-bordered">
+        <table className="table table-striped table-bordered table-hover">
           <thead>
             <tr>
               <th>Party Name</th>
@@ -104,17 +120,20 @@ const AdvanceSearch = () => {
             </tr>
           </thead>
           <tbody>
-            {candidates.map((candidate) => (
-              <tr key={candidate.id}>
-                <td>{candidate.partyName}</td>
-                <td>{candidate.abbreviation}</td>
+            { advanceSearch.length == 0? <><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+            </>: 
+            
+            advanceSearch.map((res) => (
+              <tr >
+                <td>{res.partyName}</td>
+                <td>{res.abbreviation}</td>
                 <td className="text-center">
-                  <img src={Partylogo} alt="Party Logo" width="50" />
+                  <img src={res.partyLogo} alt="Party Logo" width="50" />
                 </td>
-                <td>{candidate.constituencyName}</td>
-                <td>{candidate.firstName} {candidate.lastName}</td>
+                <td>{res.constituencyName}</td>
+                <td>{res.firstName} {res.lastName}</td>
                 <td className="text-center">
-                  <img src={ProfilePhoto} alt="Candidate" width="100" />
+                  <img src={res.candidateImage} alt="Candidate" width="100" />
                 </td>
               </tr>
             ))}

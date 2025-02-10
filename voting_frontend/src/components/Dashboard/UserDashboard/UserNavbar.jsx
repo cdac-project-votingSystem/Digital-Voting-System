@@ -38,6 +38,17 @@ const UserNavbar = () => {
             Upcoming Elections
           </NavLink>
         </li>
+        <br />
+        <li className="nav-item">
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? "active nav-link" : "nav-link"
+            }
+            to="/user-dashboard/upcoming-elections"
+          >
+            candidate verification Status
+          </NavLink>
+        </li>
       </ul>
     </div>
   );

@@ -25,7 +25,7 @@ boolean updateVoter(Long voterId, VoterRequestDTO voterRequestDTO);
 
 boolean hasVoted(Long voterId);
 
-boolean castVote(Long voterId, Long candidateId);
+ApiResponse castVote(Long voterId, Long candidateId);
   
 	
 }

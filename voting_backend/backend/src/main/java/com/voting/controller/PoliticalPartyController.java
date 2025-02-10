@@ -26,7 +26,14 @@ import com.voting.dtos.PoliticalPartySignUpResponseDTO;
 import com.voting.service.ImageHandlingService;
 import com.voting.service.PoliticalPartyService;
 
-//@CrossOrigin("*")
+//@CrossOrigin(origins = { 
+//	    "http://localhost:3000", 
+//	    "http://localhost:3001", 
+//	    "http://localhost:3002", 
+//	    "http://localhost:3003", 
+//	    "http://localhost:3004", 
+//	    "http://localhost:3005"
+//	})
 @RestController
 @RequestMapping("/politicalParty")
 public class PoliticalPartyController {

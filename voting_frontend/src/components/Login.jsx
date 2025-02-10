@@ -34,7 +34,7 @@ const Login = () => {
 
       const user = jwtDecode(res.data.token);
         if(user.authorities == "ROLE_VOTER"){
-            navigate("/voter");
+            navigate("/user-dashboard");
         }else if(user.authorities  == "ROLE_ADMIN"){
             navigate("/admin");
         }

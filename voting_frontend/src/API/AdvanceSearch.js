@@ -1,10 +1,9 @@
 import axios from "axios";
-import { createUrl } from "../utils"
-import axiosInstance from "./AxiosInstance";
+import { createUrl } from "../utils";
 
-export async function getAllParty () {
+export async function AdvanceSearchFxn(pid,cid){
+    const path = createUrl("advanceSearch/"+pid+"/"+cid);
     try{
-        const path = createUrl("politicalParty/viewAllValid");
         const response = await axios.get(path);
         return response;
     }
@@ -14,4 +13,5 @@ export async function getAllParty () {
             error :ex
         }
     }
+
 }

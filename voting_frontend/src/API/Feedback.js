@@ -1,11 +1,10 @@
 import axios from "axios";
 import { createUrl } from "../utils";
-import axiosInstance from "./AxiosInstance";
 
 export async function submitFeedback(body){
-    const path = "feedback"
+    const path = createUrl("feedback");
     try{
-        const response = await axiosInstance.post(path,body);
+        const response = await axios.post(path,body);
         return response;
     }
     catch(ex){
@@ -18,9 +17,9 @@ export async function submitFeedback(body){
 }
 
 export async function getUnreadFeedback(){
-    const path  = "feedback/allUnread"
+    const path  = createUrl("feedback/allUnread")
     try{
-        const response = await axiosInstance.get(path);
+        const response = await axios.get(path);
         return response;
     }
     catch(ex){
@@ -32,9 +31,9 @@ export async function getUnreadFeedback(){
 }
 
 export async function setRead(id){
-    const path  = `feedback/"+${id}`
+    const path  = createUrl (`feedback/${id}`)
     try{
-        const response = await axiosInstance.patch(path);
+        const response = await axios.patch(path);
         return response;
     }
     catch(ex){
@@ -46,9 +45,9 @@ export async function setRead(id){
 }
 
 export async function setDelete(id){
-    const path  = `feedback/"+${id}`
+    const path  = createUrl (`feedback/${id}`)
     try{
-        const response = await axiosInstance.delete(path);
+        const response = await axios.delete(path);
         return response;
     }
     catch(ex){

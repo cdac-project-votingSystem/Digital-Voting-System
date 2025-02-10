@@ -23,7 +23,14 @@ import com.voting.service.VoterService;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 
-//@CrossOrigin("*")
+//@CrossOrigin(origins = { 
+//	    "http://localhost:3000", 
+//	    "http://localhost:3001", 
+//	    "http://localhost:3002", 
+//	    "http://localhost:3003", 
+//	    "http://localhost:3004", 
+//	    "http://localhost:3005"
+//	})
 @RestController
 @RequestMapping("/voters")
 public class VoterController {
@@ -67,24 +74,22 @@ public class VoterController {
 	
 	// write an api for hasVoted which returns wheater voter has voted and implment cast to voter
 	
-	@GetMapping("/{voterId}/hasVoted")
+	@GetMapping("/hasVoted/{voterId}")
     public ResponseEntity<HasVotedResponseDTO> hasVoted(@PathVariable Long voterId) {
         boolean hasVoted = voterService.hasVoted(voterId);
-        return ResponseEntity.ok(new HasVotedResponseDTO(hasVoted));
+        if (hasVoted== true)
+        		return ResponseEntity.ok(new HasVotedResponseDTO(hasVoted));
+        else 
+        		return ResponseEntity.status(HttpStatus.ALREADY_REPORTED).body(new HasVotedResponseDTO(hasVoted));
     }
 	
-	@PatchMapping("/{voterId}/vote")
+	@PatchMapping("/{voterId}/{candidateId}")
     public ResponseEntity<ApiResponse> castVote(
             @PathVariable Long voterId,
-            @RequestParam Long candidateId) {
+            @PathVariable Long candidateId) {
 
-        boolean success = voterService.castVote(voterId, candidateId);
-        if (!success) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new ApiResponse("Voting failed. Voter has already voted or invalid details."));
-        }
         return ResponseEntity.status(HttpStatus.OK)
-                .body(new ApiResponse("Vote cast successfully"));
+                .body( voterService.castVote(voterId, candidateId));
     }
 	
 }

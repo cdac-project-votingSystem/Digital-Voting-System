@@ -13,9 +13,11 @@ import com.voting.dao.CandidateDao;
 import com.voting.dao.ConstituencyDao;
 import com.voting.dao.PoliticalPartyDao;
 import com.voting.dao.VoterDao;
+import com.voting.dtos.AdvanceSearchResponseDTO;
 import com.voting.dtos.ApiResponse;
 import com.voting.dtos.CandidateRequestDTO;
 import com.voting.dtos.CandidateResDTO;
+import com.voting.dtos.VotingDTO;
 import com.voting.pojos.Candidate;
 import com.voting.pojos.Constituency;
 import com.voting.pojos.PoliticalParty;
@@ -98,9 +100,34 @@ public class CandidateServiceImp implements CandidateService{
 		}
 		return res;
 	}
-	
-	
 
-  
-	
+//    private String partyLogo;
+//    
+////    @Column(name = "constituency_name", nullable = false, unique = true, length = 255) //oroginally name in pojo
+//    private String constituencyName;
+//   
+//	private String candidateImage;
+	@Override
+	public List<VotingDTO> getAllValid() {
+		List<Candidate> candidateList = candidateDao.findByIsValid(1);
+		List<VotingDTO>  res = new ArrayList<>();
+	for(Candidate c : candidateList) {
+		VotingDTO temp = new VotingDTO();
+		temp.setFirstName( c.getVoter().getFirstName());
+		temp.setLastName(c.getVoter().getLastName());
+		temp.setPartyName(c.getPoliticalParty().getPartyName());
+		temp.setAbbreviation(c.getPoliticalParty().getAbbreviation());
+		temp.setId( c.getCandidateId());
+		try {
+			temp.setCandidateImage( "data:image/png;base64,"+ imageHandlingService.retrieveImage(c, "candidate"));
+			temp.setPartyLogo( "data:image/png;base64,"+imageHandlingService.retrieveImage(c.getPoliticalParty(), "party"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		res.add(temp);
+	}
+	return res;
+	}
+
 }

@@ -79,7 +79,7 @@ const App = () => {
             <Route path="/feedback" element={<Feedback />} />
             <Route path="/admin" element={<AdminDashBoardHome />} />
 
-            <Route path="/voter" element={<UserDashboard />}>
+            <Route path="/user-dashboard" element={<UserDashboard />}>
               <Route path="voter" element={<UserInfo />} />
               <Route path="voting" element={<Voting />} />
               <Route

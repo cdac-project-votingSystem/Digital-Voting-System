@@ -23,7 +23,14 @@ import com.voting.service.VoterService;
 
 import jakarta.validation.Valid;
 
-//@CrossOrigin("*")
+//@CrossOrigin(origins = { 
+//	    "http://localhost:3000", 
+//	    "http://localhost:3001", 
+//	    "http://localhost:3002", 
+//	    "http://localhost:3003", 
+//	    "http://localhost:3004", 
+//	    "http://localhost:3005"
+//	})
 @RestController
 public class HomeController {	
 	@Autowired
@@ -54,8 +61,7 @@ public class HomeController {
 		Authentication authToken = authenticationManager.authenticate(authenticationToken);
 		
 		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(new ApiResponse("Successful Auth !",
-						jwtUtils.generateJwtToken(authToken)));	
+				.body(new ApiResponse("Successful Auth !" ,jwtUtils.generateJwtToken(authToken)));	
     }
 	
 	@PostMapping("/feedback")
