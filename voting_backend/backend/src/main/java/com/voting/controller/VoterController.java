@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.service.annotation.PutExchange;
 
 import com.voting.dtos.ApiResponse;
 import com.voting.dtos.CandidateVoteDTO;
@@ -20,7 +22,8 @@ import com.voting.dtos.VoterRequestDTO;
 import com.voting.dtos.VoterResponseDTO;
 import com.voting.service.VoterService;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import org.springframework.web.bind.annotation.RequestBody;
+import jakarta.validation.Valid;
 
 
 @RestController
@@ -29,6 +32,20 @@ public class VoterController {
 	@Autowired
 	VoterService voterService;
 	
+	@PutMapping("/{voterId}")
+    public ResponseEntity<ApiResponse> updateVoter(
+            @PathVariable Long voterId,
+            @Valid @RequestBody VoterRequestDTO voterRequestDTO) {
+		System.out.println(voterRequestDTO.getFirstName());
+        boolean updated = voterService.updateVoter(voterId, voterRequestDTO);
+        if (!updated) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ApiResponse("Voter not found with ID: " + voterId));
+        }
+        return ResponseEntity.ok(new ApiResponse("Voter details updated successfully"));
+    }
+	
+	
 	@GetMapping("/{voterId}")
 	public ResponseEntity<VoterResponseDTO> getVoterById(@PathVariable Long voterId) {
 	    VoterResponseDTO voter = voterService.getVoterById(voterId);
@@ -36,18 +53,6 @@ public class VoterController {
 	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 	    }
 	    return ResponseEntity.ok(voter);
-	}
-	
-	@PatchMapping("/{voterId}")
-	public ResponseEntity<ApiResponse> updateVoter(
-	        @PathVariable Long voterId,
-	        @RequestBody VoterRequestDTO voterRequestDTO) {
-	    boolean updated = voterService.updateVoter(voterId, voterRequestDTO);
-	    if (!updated) {
-	        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-	                             .body(new ApiResponse("Voter not found"));
-	    }
-	    return ResponseEntity.ok(new ApiResponse("Voter details updated successfully"));
 	}
 
 	
@@ -62,6 +67,7 @@ public class VoterController {
 	    }
 	    return ResponseEntity.ok(new ApiResponse("Password reset successfully"));
 	}
+	
 	
 	
 	// write an api for hasVoted which returns wheater voter has voted and implment cast to voter

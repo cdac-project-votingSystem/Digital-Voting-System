@@ -11,6 +11,7 @@ import com.voting.dtos.VoterResponseDTO;
 import com.voting.dtos.VoterSignupDTO;
 
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 
 @Service
 @Transactional
@@ -24,13 +25,13 @@ public interface VoterService {
 
 boolean resetPassword(String email, String newPassword);
 
-boolean updateVoter(Long voterId, VoterRequestDTO voterRequestDTO);
-
 boolean hasVoted(Long voterId);
 
 ApiResponse castVote(Long voterId, Long candidateId);
 
 List<CandidateVoteDTO> getAllCandidate(Long uid);
+
+boolean updateVoter(Long voterId, @Valid VoterRequestDTO voterRequestDTO);
   
 	
 }

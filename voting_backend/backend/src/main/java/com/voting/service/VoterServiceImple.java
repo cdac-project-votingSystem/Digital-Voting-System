@@ -115,32 +115,34 @@ public class VoterServiceImple implements VoterService {
             return new ApiResponse("Invalid credentials!");
         }
     }
+    
+    @Override
     public boolean updateVoter(Long voterId, VoterRequestDTO voterRequestDTO) {
-        Voter voter = voterDao.findById(voterId)
-                .orElseThrow(() -> new ResourceNotFoundException("Voter not found"));
-        Constituency c=  constituencyDao.findById( voter.getConstituency().getId())
-        		 .orElseThrow(() -> new ResourceNotFoundException("constiurncy not found"));
-        
-        c.setTotalVoters(c.getTotalVoters()-1);
-        // Check if constituency is changing
-        constituencyDao.save(c);
+    	Optional<Voter> optionalVoter = voterDao.findById(voterId);
+        if (!optionalVoter.isPresent()) {
+            return false; // Voter not found
+        }
 
+        Voter voter = optionalVoter.get();
+
+        // Step 2: Update the voter entity with new details
         voter.setFirstName(voterRequestDTO.getFirstName());
         voter.setLastName(voterRequestDTO.getLastName());
         voter.setContactNumber(voterRequestDTO.getContactNumber());
         voter.setDob(voterRequestDTO.getDob());
         voter.setAdhaarNumber(voterRequestDTO.getAdhaarNumber());
-        
-         Constituency cnew= constituencyDao.findById( (long) voterRequestDTO.getConstituencyId())
-        		 .orElseThrow(() -> new ResourceNotFoundException("constiurncy new not found" + voterRequestDTO.getConstituencyId()));
-        cnew.setTotalVoters(cnew.getTotalVoters()+1);
-        
-        voter.setConstituency(cnew);
-        constituencyDao.save(cnew);
+
+        // Fetch and set the constituency
+        Constituency constituency = constituencyDao.findById(voterRequestDTO.getConstituencyId())
+                .orElseThrow(() -> new RuntimeException("Constituency not found"));
+        voter.setConstituency(constituency);
+
+        // Step 3: Save the updated voter entity
         voterDao.save(voter);
-        
+
         return true;
     }
+    
     @Override
     public ApiResponse signup(VoterSignupDTO entity) {
         // ✅ Check if voter already exists

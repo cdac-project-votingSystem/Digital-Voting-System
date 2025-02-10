@@ -15,4 +15,6 @@ public interface CandidateService {
 	List<CandidateResDTO> viewAllToValidate() ;
 
 	List<VotingDTO> getAllValid();
+	
+	int isValid(Long voterId);
 }

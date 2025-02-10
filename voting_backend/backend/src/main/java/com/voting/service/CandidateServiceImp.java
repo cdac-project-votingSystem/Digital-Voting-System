@@ -130,4 +130,13 @@ public class CandidateServiceImp implements CandidateService{
 	return res;
 	}
 
+	@Override
+	public int isValid(Long voterId) {
+		Candidate candidate = candidateDao.findByVoterId(voterId);
+        if (candidate != null) {
+            return candidate.getIsValid(); // Return the isValid status
+        }
+        return -1; 
+	}
+
 }

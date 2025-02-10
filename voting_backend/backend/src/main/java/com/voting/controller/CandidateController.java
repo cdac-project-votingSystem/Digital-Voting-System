@@ -31,6 +31,11 @@ public class CandidateController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
     
+    @GetMapping("/isValid/{voterId}")
+	public int isValid(@PathVariable Long voterId) {
+		return candidateService.isValid(voterId);
+	}
+    
     @GetMapping("/toValidate")
     public List<CandidateResDTO> candidateToValidate() {
         return candidateService.viewAllToValidate();
