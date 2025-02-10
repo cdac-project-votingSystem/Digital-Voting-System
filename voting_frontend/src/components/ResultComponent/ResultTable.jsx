@@ -1,13 +1,7 @@
 import React from 'react';
 
-function Result_table() {
-  // Data for candidates and their votes
-  const candidates = [
-    { id: 1, name: "Candidate A", votes: 3000 },
-    { id: 2, name: "Candidate B", votes: 4000 },
-    { id: 3, name: "Candidate C", votes: 2500 },
-    { id: 4, name: "Candidate D", votes: 3500 },
-  ];
+function Result_table({data}) {
+ 
 
   return (
     <div>
@@ -16,15 +10,21 @@ function Result_table() {
           <tr>
             <th scope="col">#</th>
             <th scope="col">Candidate</th>
+            <th scope="col">Candidata Image</th>
+            <th scope="col">Party Name</th>
+            <th scope="col">Party Logo</th>
             <th scope="col">Votes</th>
           </tr>
         </thead>
         <tbody>
-          {candidates.map((candidate) => (
-            <tr key={candidate.id}>
-              <th scope="row">{candidate.id}</th>
-              <td>{candidate.name}</td>
-              <td>{candidate.votes}</td>
+          {data.map((candidate,index) => (
+            <tr key={index}>
+              <th scope="row">{index}</th>
+              <td>{candidate.candidateName}</td>
+              <td><img src={candidate.image} alt="" /></td>
+              <td>{candidate.partyName}</td>
+              <td>{candidate.logo}</td>
+              <td>{candidate.voteGain}</td>
             </tr>
           ))}
         </tbody>

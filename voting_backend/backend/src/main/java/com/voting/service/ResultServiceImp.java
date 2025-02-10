@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.voting.custom_exceptions.ResourceNotFoundException;
 import com.voting.dao.CandidateDao;
@@ -12,8 +13,12 @@ import com.voting.pojos.Candidate;
 import com.voting.pojos.Constituency;
 import com.voting.pojos.ResultDTO;
 
+import jakarta.transaction.Transactional;
+
 import java.io.IOException;
 
+@Service
+@Transactional
 public class ResultServiceImp implements ResultService{
 	
 	@Autowired
@@ -38,10 +43,11 @@ public class ResultServiceImp implements ResultService{
                         return new ResultDTO(
                                 candidate.getVoter().getFirstName() + " " + candidate.getVoter().getLastName(),  // Candidate Name
                                 candidate.getPoliticalParty().getPartyName(),  // Party Name
-                                imageService.retrieveImage(candidate, "candidate"), // Base64 Image
+                                "data:image/jpeg;base64,"+imageService.retrieveImage(candidate, "candidate"), // Base64 Image
                                 candidate.getVotes(),  // Votes gained
                                 constituency.getTotalVoters(),  // Total voters in the constituency
-                                constituency.getVotesCast()  // Total votes cast
+                                constituency.getVotesCast() ,
+                                "data:image/jpeg;base64,"+imageService.retrieveImage(candidate.getPoliticalParty(), "party")
                         );
                     } catch (IOException e) {
                         throw new RuntimeException("Error retrieving image for candidate: " + candidate.getCandidateId(), e);

@@ -54,6 +54,22 @@ public class VoterController {
 	    }
 	    return ResponseEntity.ok(voter);
 	}
+<<<<<<< HEAD
+=======
+	
+	@PatchMapping("/{voterId}")
+	public ResponseEntity<ApiResponse> updateVoter(
+	        @PathVariable Long voterId,
+	        @RequestBody VoterRequestDTO voterRequestDTO) {
+		System.out.println(voterRequestDTO);
+	    boolean updated = voterService.updateVoter(voterId, voterRequestDTO);
+	    if (!updated) {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+	                             .body(new ApiResponse("Voter not found"));
+	    }
+	    return ResponseEntity.ok(new ApiResponse("Voter details updated successfully"));
+	}
+>>>>>>> 3aabb252a8e355e860cde1482ddd82635832a7a7
 
 	
 	@PostMapping("/resetPassword")
