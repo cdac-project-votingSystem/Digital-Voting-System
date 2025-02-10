@@ -1,11 +1,12 @@
 import React from 'react';
 
-function Result_table({data}) {
+function ResultTable({data}) {
  
 
   return (
     <div>
-      <table className="table table-striped">
+      {/* {console.log(data)} */}
+      <table className="table table-striped" style={{ tableLayout: "fixed", width: "100%" }}>
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -19,11 +20,11 @@ function Result_table({data}) {
         <tbody>
           {data.map((candidate,index) => (
             <tr key={index}>
-              <th scope="row">{index}</th>
+              <th scope="row">{index+1}</th>
               <td>{candidate.candidateName}</td>
-              <td><img src={candidate.image} alt="" /></td>
+              <td><img className="img-fluid" src={candidate.image} alt="" style={{width:"18%",height:"18%"}} /></td>
               <td>{candidate.partyName}</td>
-              <td>{candidate.logo}</td>
+              <td> <img className="img-fluid"  src={candidate.logo}alt="" style={{width:"18%",height:"18%"}}/> </td>
               <td>{candidate.voteGain}</td>
             </tr>
           ))}
@@ -33,4 +34,4 @@ function Result_table({data}) {
   );
 }
 
-export default Result_table;
+export default ResultTable;

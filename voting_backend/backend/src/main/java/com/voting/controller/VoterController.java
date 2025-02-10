@@ -22,6 +22,7 @@ import com.voting.dtos.VoterResponseDTO;
 import com.voting.service.VoterService;
 
 
+
 @RestController
 @RequestMapping("/voters")
 public class VoterController {
