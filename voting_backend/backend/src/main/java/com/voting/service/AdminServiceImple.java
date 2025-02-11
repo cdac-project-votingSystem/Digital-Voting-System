@@ -13,6 +13,7 @@ import com.voting.dao.CandidateDao;
 import com.voting.dao.ConstituencyDao;
 import com.voting.dao.ElectionDao;
 import com.voting.dao.PoliticalPartyDao;
+import com.voting.dao.VoterDao;
 import com.voting.dtos.ApiResponse;
 import com.voting.dtos.CandidateResultHelperDTO;
 import com.voting.dtos.ConstituencyAddNew;
@@ -22,6 +23,7 @@ import com.voting.pojos.Candidate;
 import com.voting.pojos.Constituency;
 import com.voting.pojos.Election;
 import com.voting.pojos.PoliticalParty;
+import com.voting.pojos.Voter;
 
 import jakarta.transaction.Transactional;
 
@@ -40,6 +42,8 @@ public class AdminServiceImple implements AdminService {
 	CandidateDao candidateDao;
 	@Autowired
 	ElectionDao	 electionDao;
+	@Autowired
+	VoterDao voterDao;
 	
 	@Override
 	public ApiResponse addNewConstituency(ConstituencyAddNew dto) {
@@ -107,6 +111,10 @@ public class AdminServiceImple implements AdminService {
         
         for(Candidate c :listCandidate) {
         	c.setVotes(0);
+        }
+        List<Voter> voterList = voterDao.findByConstituency(constituency);
+        for(Voter v : voterList) {
+        	v.setHasVoted(false);
         }
         candidateDao.saveAll(listCandidate);
         

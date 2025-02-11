@@ -37,8 +37,8 @@ public class ElectionController {
 			}
 			  
 		@GetMapping("/election/{cid}")
-		public SendElectionDetailsDTO getMethodName(@PathVariable Long cid) {
-			return electionService.getDetails(cid);
+		public ResponseEntity<?> getMethodName(@PathVariable Long cid) {
+			return  ResponseEntity.ok( electionService.getDetails(cid));
 		}
 		
 }

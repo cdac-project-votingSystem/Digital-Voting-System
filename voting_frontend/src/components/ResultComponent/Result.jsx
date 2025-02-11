@@ -12,7 +12,7 @@ function Result() {
   const [selectedConstituency, setSelectedConstituency] = useState(null);
   const [data, setData] = useState([]);
 
-  const onFind = () => {};
+  // const onFind = () => {};
   const onLoadForm = async () => {
     try {
       const result = await getAllConstituency();
@@ -48,6 +48,7 @@ function Result() {
   };
 
   return (
+    
     <div className="container mt-5" id="result-container">
       <br />
       <br />

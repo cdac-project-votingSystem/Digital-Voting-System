@@ -8,7 +8,7 @@ export async function getUpcomingElection(cid) {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      console.log(response)
+      // console.log(response)
       return response;
     } catch (ex) {
       return { status: "error", error: ex };
